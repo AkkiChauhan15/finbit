@@ -11,12 +11,13 @@ This is the running project log. Append a dated phase entry after every future p
 
 ## Current Phase
 
-Phase 9 — Automated test coverage, demo seed, and manual QA (completed 2026-08-19)
+Phase 10 — Production deployment and live smoke verification (completed 2026-08-21)
 
 ## Folder Structure
 
 ```text
 client/
+├── vercel.json             # Vite production output and React Router SPA rewrite
 ├── src/api/client.js       # Credentialed API client and access-token refresh
 ├── src/auth/               # Auth provider and context
 ├── src/components/         # UI, route guards, global error boundary, and loading skeletons
@@ -41,6 +42,7 @@ server/
     ├── validators/         # Request validation chains
     ├── app.js              # Express app composition
     └── server.js           # API process entry point
+render.yaml                 # Render API service, environment, and health-check definition
 ```
 
 ## Data Models
@@ -203,6 +205,11 @@ No environment variables were added.
 - Server: `SEED_RESET` (default `false`) — one-shot demo-seed reset switch. Resetting is additionally refused unless the connected database name contains `qa`, `test`, or `demo`.
 - No browser environment variables were added.
 
+### Phase 10
+
+- No new application environment keys were introduced.
+- Production values are hosted outside the repository: Render stores `MONGO_URI`, JWT secrets, cookie settings, and the exact `CLIENT_URL`; Vercel stores the public `VITE_API_URL`.
+
 ## Hardening Summary
 
 - All income, expense, habit, habit-completion, savings-goal, asset, snapshot, report, and dashboard reads/mutations are scoped to the authenticated user. ID-based operations use the shared `ownedRecordFilter`; nested records use `ownedChildFilter`; collection/aggregate queries use `userScope`. The owner condition is applied last and cannot be overridden by supplied conditions.
@@ -217,16 +224,33 @@ No environment variables were added.
 - All protected feature routes are lazy-loaded, including habit, savings-goal, profile, and admin routes. Recharts remains split from the initial application bundle.
 - Added query indexes for administrative activity scans, asset value sorting, contribution activity, feedback filtering, and user lifecycle filters.
 - `npm test` runs ownership-invariant, owner-scope coverage, unknown-field rejection, credential serialization, and client-environment isolation checks without requiring a database.
+- Production startup now fails fast unless MongoDB, distinct strong JWT secrets, an exact HTTPS client origin, and safe bcrypt rounds are configured. Render proxy trust is enabled only in production.
+- Unknown production 5xx failures return only `Internal server error`; stack traces and internal messages remain server-side. The production health endpoint returns `503` if MongoDB is disconnected.
 
 ## Testing and QA Summary
 
-- The server uses Jest, Supertest, and `mongodb-memory-server`. Seven API integration tests cover register/me/refresh/logout and invalid credentials, plus complete create/list-or-read/update/delete lifecycles for income, expenses, habits, savings goals, and assets. Every feature test includes invalid-input and/or cross-user guessed-id rejection; habit idempotency, completion cleanup, and goal overfunding are also asserted.
-- Six fast server security tests retain static ownership-scope coverage, request-field injection rejection, sensitive-field serialization checks, and browser environment isolation. The combined server result is 13 passing tests across two suites.
+- The server uses Jest, Supertest, and `mongodb-memory-server`. Eight API integration tests cover register/login/me/refresh/logout, exact-origin CORS, and complete create/list-or-read/update/delete lifecycles for income, expenses, habits, savings goals, and assets. Every feature test includes invalid-input and/or cross-user guessed-id rejection; habit idempotency, completion cleanup, and goal overfunding are also asserted.
+- Eight fast server security tests retain static ownership-scope coverage, request-field injection rejection, sensitive-field serialization, browser environment isolation, production error redaction, and production configuration checks. The combined server result is 16 passing tests across two suites.
 - The client uses Vitest, jsdom, and React Testing Library. Four integration tests cover Login validation/success navigation, Register password validation/normalized submission, Expense Tracker add-to-edit flow, and current-period habit completion UI refresh.
-- Root `npm test` runs both workspaces. `npm ci` followed by `npm test` was verified in a dependency-free copy of the repository: 13 server tests and 4 client tests passed.
+- Root `npm test` runs both workspaces. `npm ci` followed by `npm test` was verified in a dependency-free copy of the repository; the final local result is 16 server tests and 4 client tests passing.
 - `server/src/scripts/seed.js` creates guarded, realistic demo/admin fixtures, six months of cash-flow and net-worth history, active and fully funded goals, assets, habit streak examples, and feedback. It was run against a clean temporary `wht_qa` database and verified with 3 users, 6 income records, 18 expenses, 3 habits, 3 goals, and 3 assets.
 - `server/src/scripts/qaSmoke.js` reruns the seed in disposable MongoDB and exercises the signup/zero-data dashboard, profile, income/expense, habit idempotency, goal completion, assets/snapshots, ownership attack, feedback, admin analytics/roles/deactivation/reactivation, logout, and soft-delete journeys. Every check passed. The human-facing checklist lives at root `MANUAL_QA.md`.
 - QA found no product-logic regression. It did find an out-of-sync root lockfile that caused clean `npm ci` to fail and a missing Node-global ESLint scope for the CommonJS Jest setup; both were fixed and revalidated.
+
+## Production Deployment
+
+- Live client: `https://financial-habit-builder-eight.vercel.app`
+- Live API: `https://financial-habit-builder-api-s3j5.onrender.com/api`
+- Health check: `https://financial-habit-builder-api-s3j5.onrender.com/api/health`
+- Hosting: Vercel production deployment for the Vite client; Render Node web service in Singapore on the free plan; MongoDB Atlas for production persistence.
+- CORS: the API accepts browser credentials only from the exact Vercel production origin. A live request from that origin returned `200`; an untrusted origin returned `403` without an allow-origin header.
+- Live API smoke: fresh register and login, income, expense, habit completion, savings-goal contribution, asset creation, net-worth snapshot, dashboard aggregate, wealth analytics data, feedback, admin promotion, user listing, platform analytics, and feedback inbox all passed.
+- Live Chrome smoke: normal-user login and feature pages, logout, admin login and Admin Panel, and page containment at 375 px, 768 px, and 1280 px all passed with no unexpected console errors, page exceptions, or 5xx responses.
+- Smoke data was removed after verification: exactly two generated QA accounts and their eight associated records were permanently deleted. No user-created data was changed.
+
+## Build Wrap-up
+
+The completed product now includes secure JWT sessions, financial profiles, cash-flow tracking and reports, habit periods and streaks, savings-goal projections and contributions, assets and net-worth history, aggregate dashboards, platform administration, feedback handling, responsive chart-driven React pages, ownership and validation hardening, automated server/client tests, guarded demo fixtures, repeatable QA, and a verified production deployment. The root README is the operational entry point; this file remains the architectural and decision history.
 
 ## Known Issues / TODO
 
@@ -321,3 +345,12 @@ No environment variables were added.
 - Added a guarded seed reset instead of an unrestricted database drop. Only known application collections are cleared, `SEED_RESET=true` must be explicit, and the database name must identify a QA/test/demo target.
 - Added a repeatable disposable QA smoke command alongside the written manual checklist so high-value API journeys can be rerun consistently while real-browser visual checks remain manual.
 - Kept known seed credentials limited to disposable demo environments. The seed and QA output never prints MongoDB connection strings or JWT values.
+
+### 2026-08-21 — Phase 10
+
+- Split production hosting by runtime: Vercel serves the static Vite application while Render runs the stateful Express process; MongoDB Atlas remains the persistence layer.
+- Added fail-fast production configuration validation, exact HTTPS-origin enforcement, Render proxy trust, database-aware health status, and generic 5xx client responses.
+- Generated independent JWT secrets inside Render and kept all deployment credentials and MongoDB values outside Git and the Vite client bundle.
+- Persisted `VITE_API_URL` in Vercel and restricted Render `CLIENT_URL` to the stable production alias rather than the immutable one-off deployment URL.
+- Used seed-free, uniquely named QA accounts for live validation. A dedicated test account was temporarily promoted to admin, the full browser/API journeys were completed, and all generated accounts and records were then removed.
+- Confirmed the intentionally wide asset/admin tables stay inside local horizontal-scroll containers; the document itself remains contained at 375 px after responsive chart layout settles.

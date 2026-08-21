@@ -1,12 +1,20 @@
 # Financial Habit Builder & Wealth Growth Tracker
 
-Full-stack monorepo for building financial habits and tracking wealth growth. The current foundation includes secure access/refresh-token authentication and financial profile settings; the feature trackers remain placeholders.
+Production-ready full-stack application for building financial habits, tracking cash flow and goals, and monitoring wealth growth.
+
+## Live deployment
+
+- Application: [https://financial-habit-builder-eight.vercel.app](https://financial-habit-builder-eight.vercel.app)
+- API health: [https://financial-habit-builder-api-s3j5.onrender.com/api/health](https://financial-habit-builder-api-s3j5.onrender.com/api/health)
+- API base URL: `https://financial-habit-builder-api-s3j5.onrender.com/api`
+
+The React client runs on Vercel, the Express API runs on Render, and production data is stored in MongoDB Atlas. The live deployment was verified on August 21, 2026 with a seed-free registration and complete user/admin smoke journey.
 
 ## Prerequisites
 
 - Node.js 20 or newer
 - npm 10 or newer
-- MongoDB running locally or a MongoDB Atlas connection string (needed when database-backed features are introduced)
+- MongoDB running locally or a MongoDB Atlas connection string
 
 ## Install
 
@@ -39,6 +47,16 @@ npm run dev:client
 - API health check: <http://localhost:5000/api/health>
 
 The health endpoint can boot without `MONGO_URI`, but registration, login, session refresh, and profile features require MongoDB plus `JWT_SECRET` and `JWT_REFRESH_SECRET`.
+
+## Production deployment
+
+- `render.yaml` defines the Node web service, production environment, generated JWT secrets, and `/api/health` check.
+- `client/vercel.json` defines the Vite output and SPA rewrite required for React Router deep links.
+- Render `CLIENT_URL` is restricted to the exact Vercel production origin.
+- Vercel `VITE_API_URL` points to the Render `/api` base URL.
+- Production startup requires a MongoDB URI, distinct 32+ character JWT secrets, an HTTPS client origin, and bcrypt rounds from 10–15.
+
+The free Render instance can require a short cold-start period after inactivity.
 
 ## Authentication configuration
 
