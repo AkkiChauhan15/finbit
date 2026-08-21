@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Wealth Analytics - Financial Habit Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {error: "#ba1a1a", "on-error-container": "#93000a", "on-secondary-container": "#fffbff", "surface-bright": "#f4fbf4", "surface-dim": "#d4dcd5", "surface-container-high": "#e3eae3", "secondary-fixed": "#e1e0ff", surface: "#f4fbf4", "inverse-on-surface": "#ebf3eb", "on-surface": "#161d19", "surface-container": "#e8f0e9", secondary: "#4648d4", tertiary: "#a43a3a", "surface-tint": "#006e24", "tertiary-container": "#fc7c78", "secondary-fixed-dim": "#c0c1ff", "on-primary-fixed": "#002106", "on-tertiary-fixed": "#410005", "on-primary": "#ffffff", "on-primary-fixed-variant": "#005319", "on-error": "#ffffff", "on-secondary": "#ffffff", "primary-fixed-dim": "#31e45c", "surface-container-lowest": "#ffffff", "on-secondary-fixed": "#07006c", "on-background": "#161d19", "surface-container-highest": "#dde4dd", "inverse-primary": "#31e45c", "primary-container": "#00bc44", "surface-variant": "#dde4dd", "tertiary-fixed-dim": "#ffb3af", "surface-container-low": "#eef6ee", "on-primary-container": "#004313", primary: "#006e24", "on-surface-variant": "#3c4a42", "on-secondary-fixed-variant": "#2f2ebe", "tertiary-fixed": "#ffdad7", "error-container": "#ffdad6", "secondary-container": "#6063ee", "on-tertiary-fixed-variant": "#842225", "inverse-surface": "#2b322d", "outline-variant": "#bbcabf", background: "#f4fbf4", "primary-fixed": "#6dff80", "on-tertiary-container": "#711419", outline: "#6c7a71", "on-tertiary": "#ffffff"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"0": "0px", "6": "32px", gutter: "24px", "3": "12px", "2": "8px", "1": "4px", "5": "24px", "margin-mobile": "16px", "10": "64px", "8": "48px", "4": "16px", "margin-desktop": "40px"}, fontFamily: {"label-md": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}], "headline-md": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "700"}]}}}};</script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAF9; color: #0F172A; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        /* Tonal layering & Soft Elevation */
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05); }
+        .card-shadow-hover:hover { box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.05); transform: translateY(-1px); transition: all 0.2s ease; }
+        
+        /* Layout constraint for mobile focus */
+        .mobile-container { max-width: 375px; margin: 0 auto; background-color: #FAFAF9; min-height: 100vh; position: relative; padding-bottom: 80px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-dim">
+<div class="mobile-container overflow-hidden shadow-2xl bg-surface-container-lowest">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-margin-mobile h-16 bg-surface dark:bg-inverse-surface shadow-sm docked full-width top-0 sticky z-40 text-primary dark:text-inverse-primary font-headline-md-mobile text-headline-md-mobile">
+<div class="flex items-center gap-3">
+<!-- Brand Logo -->
+<span class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary dark:text-inverse-primary">Financial Habit Builder</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Trailing Icons -->
+<button aria-label="notifications" class="text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-100 p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="help_outline" class="text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-100 p-2">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a person looking confident and calm, soft natural lighting, set against a plain light gray background, corporate modern style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfzDJh6XNyVPIPNfNkyMHBxt_LNjiSlKmUecFmxdOZ8OMJnbceSFpkbsaEOFgxoUwyqtFtco0Ks9K26T1KBbM06c-ialUOx11SUBDoSnpsEPT19YNcvIwLov3WO574XlO3eV1es1NyfGvZXHPwRKbN5LueBVVe9Y8dUOT7dvZjG8iew_A7d_cWKkNb3nFMb4Qt1OsxZmmaQOyFScvp_dPgTI0rgojTTxsjdQrhyhn3PEqK0_SwKAc">
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="p-margin-mobile flex flex-col gap-6">
+<!-- Header Section -->
+<section class="flex flex-col gap-2">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Wealth Analytics</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Track your portfolio growth and asset distribution.</p>
+</section>
+<!-- Total Balance Card -->
+<section class="bg-primary-container text-on-primary-container rounded-xl p-5 flex flex-col gap-4 relative overflow-hidden card-shadow">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start z-10">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm opacity-90 uppercase tracking-wider">Total Net Worth</span>
+<span class="font-headline-xl text-headline-xl font-bold tracking-tight">$142,500</span>
+</div>
+<div class="bg-white/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-white" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<div class="flex items-center gap-2 z-10">
+<span class="bg-white/20 text-white font-label-sm text-label-sm px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="arrow_upward">arrow_upward</span>
+                    +2.4%
+                </span>
+<span class="font-body-sm text-body-sm opacity-90">vs last month</span>
+</div>
+</section>
+<!-- Date Selector -->
+<section class="flex bg-surface-container-low rounded-lg p-1 border border-outline-variant">
+<button class="flex-1 py-2 font-label-md text-label-md text-on-surface-variant rounded-md hover:bg-surface-container transition-colors">1W</button>
+<button class="flex-1 py-2 font-label-md text-label-md text-on-surface-variant rounded-md hover:bg-surface-container transition-colors">1M</button>
+<button class="flex-1 py-2 font-label-md text-label-md bg-white text-primary shadow-sm rounded-md">3M</button>
+<button class="flex-1 py-2 font-label-md text-label-md text-on-surface-variant rounded-md hover:bg-surface-container transition-colors">YTD</button>
+<button class="flex-1 py-2 font-label-md text-label-md text-on-surface-variant rounded-md hover:bg-surface-container transition-colors">1Y</button>
+</section>
+<!-- Chart Placeholder -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 card-shadow h-64 flex flex-col justify-between">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-md text-label-md text-on-surface">Growth Trend</h3>
+<button aria-label="More options"><span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span></button>
+</div>
+<!-- Simplified CSS-based mock chart for layout purpose -->
+<div class="flex-1 relative border-b border-l border-outline-variant">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-t border-outline-variant opacity-30 h-0 w-full"></div>
+<div class="border-t border-outline-variant opacity-30 h-0 w-full"></div>
+<div class="border-t border-outline-variant opacity-30 h-0 w-full"></div>
+<div class="border-t border-outline-variant opacity-30 h-0 w-full"></div>
+</div>
+<!-- Mock area graph -->
+<svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+<defs>
+<linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#10B981" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#10B981" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+<path d="M0,100 L0,80 C20,75 40,90 60,60 C80,30 90,40 100,20 L100,100 Z" fill="url(#chartGradient)"></path>
+<path d="M0,80 C20,75 40,90 60,60 C80,30 90,40 100,20" fill="none" stroke="#10B981" stroke-width="3"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>Oct</span>
+<span>Nov</span>
+<span>Dec</span>
+<span>Jan</span>
+</div>
+</section>
+<!-- Asset Distribution -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Assets</h2>
+<button class="font-label-md text-label-md text-primary flex items-center gap-1 hover:opacity-80">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span> Add
+                </button>
+</div>
+<!-- Asset Cards -->
+<div class="flex flex-col gap-3">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex items-center justify-between card-shadow card-shadow-hover cursor-pointer touch-manipulation">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="real_estate_agent">real_estate_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Real Estate</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Primary Residence</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface">$85,000</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="trending_up">trending_up</span> 1.2%
+                        </span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex items-center justify-between card-shadow card-shadow-hover cursor-pointer touch-manipulation">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="savings">savings</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Index Funds</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Vanguard S&amp;P 500</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface">$42,500</span>
+<span class="font-label-sm text-label-sm text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="trending_up">trending_up</span> 4.5%
+                        </span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex items-center justify-between card-shadow card-shadow-hover cursor-pointer touch-manipulation">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Cash Reserve</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">High Yield Savings</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface">$15,000</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="horizontal_rule">horizontal_rule</span> 0.0%
+                        </span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-2 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg docked full-width bottom-0 fixed md:hidden z-50 font-label-sm text-label-sm text-primary dark:text-inverse-primary" style="max-width: 375px; margin: 0 auto; left: 50%; transform: translateX(-50%);">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="mt-1">Home</span>
+</a>
+<!-- Habits (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+<span class="mt-1">Habits</span>
+</a>
+<!-- Wealth (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="mt-1">Wealth</span>
+</a>
+<!-- Analytics (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up" data-weight="fill">trending_up</span>
+<span class="mt-1 font-bold">Analytics</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container active:scale-90 duration-200 p-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="mt-1">Profile</span>
+</a>
+</nav>
+</div>
+</body></html>

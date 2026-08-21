@@ -3,8 +3,8 @@ import FormField from '../FormField.jsx';
 
 function AssetForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubmit, values }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:p-6">
-      <h2 className="text-xl font-semibold text-white">
+    <section className="rounded-2xl border border-[#cbd7ce] bg-white shadow-soft p-5 sm:p-6">
+      <h2 className="text-xl font-semibold text-[#161d19]">
         {isEditing ? 'Update asset' : 'Add an asset or investment'}
       </h2>
       <form
@@ -14,14 +14,14 @@ function AssetForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubm
       >
         {errors.form && (
           <p
-            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300 sm:col-span-2 lg:col-span-4"
+            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-[#a43a3a] sm:col-span-2 lg:col-span-4"
             role="alert"
           >
             {errors.form}
           </p>
         )}
         <div>
-          <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="asset-type">
+          <label className="mb-2 block text-sm font-medium text-[#26352c]" htmlFor="asset-type">
             Type
           </label>
           <select
@@ -29,7 +29,7 @@ function AssetForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubm
             name="type"
             value={values.type}
             onChange={onChange}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-emerald-500"
+            className="w-full rounded-lg border border-[#b9c8bd] bg-[#f4fbf4] px-3 py-2.5 text-[#161d19] outline-none focus:border-emerald-500"
           >
             {assetTypes.map((type) => (
               <option key={type} value={type}>
@@ -72,7 +72,7 @@ function AssetForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubm
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-lg bg-emerald-500 px-4 py-2.5 font-semibold text-slate-950 hover:bg-emerald-400 disabled:opacity-50"
+            className="rounded-lg bg-[#00bc44] px-4 py-2.5 font-semibold text-[#161d19] hover:bg-[#18c950] disabled:opacity-50"
           >
             {isSubmitting ? 'Saving…' : isEditing ? 'Update asset' : 'Add asset'}
           </button>
@@ -80,7 +80,7 @@ function AssetForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubm
             <button
               type="button"
               onClick={onCancel}
-              className="rounded-lg border border-slate-700 px-4 py-2.5 text-slate-300 hover:bg-slate-800"
+              className="rounded-lg border border-[#b9c8bd] px-4 py-2.5 text-[#35443a] hover:bg-[#e8f0e9]"
             >
               Cancel
             </button>

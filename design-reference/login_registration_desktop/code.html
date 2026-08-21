@@ -1,0 +1,205 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Login - Financial Habit Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {error: "#ba1a1a", "on-error-container": "#93000a", "on-secondary-container": "#fffbff", "surface-bright": "#f4fbf4", "surface-dim": "#d4dcd5", "surface-container-high": "#e3eae3", "secondary-fixed": "#e1e0ff", surface: "#f4fbf4", "inverse-on-surface": "#ebf3eb", "on-surface": "#161d19", "surface-container": "#e8f0e9", secondary: "#4648d4", tertiary: "#a43a3a", "surface-tint": "#006e24", "tertiary-container": "#fc7c78", "secondary-fixed-dim": "#c0c1ff", "on-primary-fixed": "#002106", "on-tertiary-fixed": "#410005", "on-primary": "#ffffff", "on-primary-fixed-variant": "#005319", "on-error": "#ffffff", "on-secondary": "#ffffff", "primary-fixed-dim": "#31e45c", "surface-container-lowest": "#ffffff", "on-secondary-fixed": "#07006c", "on-background": "#161d19", "surface-container-highest": "#dde4dd", "inverse-primary": "#31e45c", "primary-container": "#00bc44", "surface-variant": "#dde4dd", "tertiary-fixed-dim": "#ffb3af", "surface-container-low": "#eef6ee", "on-primary-container": "#004313", primary: "#006e24", "on-surface-variant": "#3c4a42", "on-secondary-fixed-variant": "#2f2ebe", "tertiary-fixed": "#ffdad7", "error-container": "#ffdad6", "secondary-container": "#6063ee", "on-tertiary-fixed-variant": "#842225", "inverse-surface": "#2b322d", "outline-variant": "#bbcabf", background: "#f4fbf4", "primary-fixed": "#6dff80", "on-tertiary-container": "#711419", outline: "#6c7a71", "on-tertiary": "#ffffff"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"0": "0px", "6": "32px", gutter: "24px", "3": "12px", "2": "8px", "1": "4px", "5": "24px", "margin-mobile": "16px", "10": "64px", "8": "48px", "4": "16px", "margin-desktop": "40px"}, fontFamily: {"label-md": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}], "headline-md": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "700"}]}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Soft Elevation Shadow */
+        .shadow-soft {
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-full antialiased selection:bg-primary-container selection:text-on-primary-container">
+<div class="min-h-screen flex flex-col md:flex-row">
+<!-- Left Side: Illustration / Brand Story -->
+<div class="hidden md:flex flex-1 bg-surface-container-low flex-col justify-between p-margin-desktop relative overflow-hidden border-r border-outline-variant">
+<!-- Decorative Background Element -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 100% 100%, #10b981 0%, transparent 50%);"></div>
+<div class="z-10 mt-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-[32px] fill">eco</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Financial Habit Builder</h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    Cultivate sustainable financial growth. Master your habits, track your wealth, and build a secure future with precision and clarity.
+                </p>
+</div>
+<div class="z-10 flex-1 flex items-center justify-center py-10 relative">
+<div class="relative w-full max-w-lg aspect-square rounded-full border border-outline-variant/30 flex items-center justify-center p-8">
+<!-- Abstract Graphic Placeholder -->
+<img class="w-full h-full object-contain drop-shadow-xl z-20" data-alt="A clean, abstract 3D illustration of financial growth and habit tracking. The scene features smooth geometric shapes like spheres and rising bar graphs in soft emerald greens and warm neutral tones, arranged organically. The lighting is soft and studio-quality, creating gentle shadows against a pristine off-white background, conveying a sense of calm professionalism and steady progress." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD23D_7ht3WdZ2Afa1jWwYL6jZ3z_zDAGfoq29A3N-NXqcHcIhEEOg0qGbAhqJq5A6uE4n2dSsj0l2t_aeXo9HPYrjHSbvz_y6d6lWFDL8SrWf65UGKSUPMo0wjNFdeB4B2eQBEc9lLTcO29HUgFAncCeV2WoL3oH5Ejp0e3dMAl0rjad1HepjaHCkURgMT-9Yt89A7YE3LMMsP76DDCfGTWbRAIHGBvGiOCjOum4LMuI13EgZdAHc">
+<!-- Subtle orbit rings -->
+<div class="absolute inset-0 border border-primary/10 rounded-full scale-110"></div>
+<div class="absolute inset-0 border border-primary/5 rounded-full scale-125"></div>
+</div>
+</div>
+<div class="z-10 font-body-sm text-body-sm text-on-surface-variant">
+                © 2024 Financial Habit Builder. Secure &amp; Encrypted.
+            </div>
+</div>
+<!-- Right Side: Login/Register Form -->
+<div class="flex-1 flex flex-col justify-center px-margin-mobile py-10 md:px-margin-desktop bg-surface relative">
+<!-- Mobile Brand Header (Hidden on Desktop) -->
+<div class="md:hidden flex items-center gap-2 mb-8 justify-center w-full">
+<span class="material-symbols-outlined text-primary text-[28px] fill">eco</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Habit Builder</h1>
+</div>
+<div class="w-full max-w-[440px] mx-auto bg-surface-container-lowest rounded-xl border border-outline-variant shadow-soft p-6 md:p-8 relative z-10">
+<!-- Toggle Tabs -->
+<div class="flex border-b border-outline-variant mb-6 pb-2">
+<button class="flex-1 text-center font-label-md text-label-md text-primary border-b-2 border-primary pb-2 -mb-[9px] transition-colors" id="tab-login">
+                        Log In
+                    </button>
+<button class="flex-1 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface pb-2 transition-colors" id="tab-register">
+                        Create Account
+                    </button>
+</div>
+<!-- Form Area -->
+<div id="form-container">
+<div class="mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Welcome back</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Enter your details to access your dashboard.</p>
+</div>
+<!-- Server Error Alert Placeholder (Hidden by default) -->
+<div class="hidden bg-error-container border border-error/20 rounded-md p-3 mb-5 flex items-start gap-2">
+<span class="material-symbols-outlined text-error text-[20px] mt-0.5">error</span>
+<p class="font-body-sm text-body-sm text-on-error-container">Invalid email or password. Please try again.</p>
+</div>
+<form action="#" class="space-y-4" method="POST">
+<!-- Name Field (Only for Register - Hidden initially) -->
+<div class="hidden" id="field-name">
+<label class="block font-label-sm text-label-sm text-on-surface mb-1" for="name">Full Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md px-3 py-2 text-body-md focus:border-secondary focus:ring focus:ring-secondary/20 focus:outline-none transition-shadow" id="name" name="name" placeholder="Jane Doe" type="text">
+</div>
+<!-- Email Field -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1" for="email">Email Address</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">mail</span>
+</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md pl-9 pr-3 py-2 text-body-md focus:border-secondary focus:ring focus:ring-secondary/20 focus:outline-none transition-shadow" id="email" name="email" placeholder="you@example.com" required="" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface mb-1" for="password">Password</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">lock</span>
+</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md pl-9 pr-10 py-2 text-body-md focus:border-secondary focus:ring focus:ring-secondary/20 focus:outline-none transition-shadow" id="password" name="password" placeholder="••••••••" required="" type="password">
+<button class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility_off</span>
+</button>
+</div>
+<!-- Inline Validation Example (Hidden) -->
+<p class="hidden font-body-sm text-body-sm text-error mt-1">Password must be at least 8 characters.</p>
+</div>
+<!-- Confirm Password (Only for Register - Hidden initially) -->
+<div class="hidden" id="field-confirm-password">
+<label class="block font-label-sm text-label-sm text-on-surface mb-1" for="confirm-password">Confirm Password</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">lock_reset</span>
+</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md pl-9 pr-3 py-2 text-body-md focus:border-secondary focus:ring focus:ring-secondary/20 focus:outline-none transition-shadow" id="confirm-password" name="confirm-password" placeholder="••••••••" type="password">
+</div>
+</div>
+<!-- Options Row (Login Only) -->
+<div class="flex items-center justify-between pt-1" id="login-options">
+<div class="flex items-center">
+<input class="h-4 w-4 text-primary focus:ring-primary border-outline-variant rounded bg-surface" id="remember-me" name="remember-me" type="checkbox">
+<label class="ml-2 block font-body-sm text-body-sm text-on-surface-variant" for="remember-me">
+                                    Remember me
+                                </label>
+</div>
+<div class="text-sm">
+<a class="font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors" href="#">
+                                    Forgot password?
+                                </a>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-2">
+<button class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm font-label-md text-label-md text-on-primary bg-primary-container hover:bg-[#0ea5e9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container transition-colors relative" id="submit-btn" type="submit">
+<span id="submit-text">Sign In</span>
+<!-- Loading Spinner (Hidden) -->
+<svg class="animate-spin hidden h-5 w-5 text-on-primary absolute" fill="none" id="submit-spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path>
+</svg>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Secure Badge bottom right -->
+<div class="absolute bottom-6 right-6 hidden md:flex items-center gap-1.5 text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-sm text-label-sm">256-bit SSL</span>
+</div>
+</div>
+</div>
+<script>
+        // Simple tab switching logic for demo purposes
+        const tabLogin = document.getElementById('tab-login');
+        const tabRegister = document.getElementById('tab-register');
+        const fieldName = document.getElementById('field-name');
+        const fieldConfirm = document.getElementById('field-confirm-password');
+        const loginOptions = document.getElementById('login-options');
+        const submitText = document.getElementById('submit-text');
+        const headerTitle = document.querySelector('#form-container h2');
+        const headerSub = document.querySelector('#form-container h2 + p');
+
+        tabRegister.addEventListener('click', () => {
+            // UI Tab changes
+            tabRegister.classList.add('text-primary', 'border-b-2', 'border-primary', '-mb-[9px]');
+            tabRegister.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+            
+            tabLogin.classList.remove('text-primary', 'border-b-2', 'border-primary', '-mb-[9px]');
+            tabLogin.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+
+            // Form Fields
+            fieldName.classList.remove('hidden');
+            fieldConfirm.classList.remove('hidden');
+            loginOptions.classList.add('hidden');
+            
+            // Text changes
+            submitText.textContent = 'Create Account';
+            headerTitle.textContent = 'Start Building';
+            headerSub.textContent = 'Set up your secure profile to begin tracking.';
+        });
+
+        tabLogin.addEventListener('click', () => {
+            // UI Tab changes
+            tabLogin.classList.add('text-primary', 'border-b-2', 'border-primary', '-mb-[9px]');
+            tabLogin.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+            
+            tabRegister.classList.remove('text-primary', 'border-b-2', 'border-primary', '-mb-[9px]');
+            tabRegister.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+
+            // Form Fields
+            fieldName.classList.add('hidden');
+            fieldConfirm.classList.add('hidden');
+            loginOptions.classList.remove('hidden');
+
+            // Text changes
+            submitText.textContent = 'Sign In';
+            headerTitle.textContent = 'Welcome back';
+            headerSub.textContent = 'Enter your details to access your dashboard.';
+        });
+    </script>
+</body></html>

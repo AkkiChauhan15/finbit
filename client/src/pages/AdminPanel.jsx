@@ -164,12 +164,12 @@ function AdminPanel() {
   if (error && !analytics) {
     return (
       <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 px-6 py-12 text-center">
-        <p className="font-medium text-rose-200">We couldn’t load the admin workspace.</p>
-        <p className="mt-2 text-sm text-rose-300/80">{error}</p>
+        <p className="font-medium text-[#842225]">We couldn’t load the admin workspace.</p>
+        <p className="mt-2 text-sm text-[#9b4a4a]">{error}</p>
         <button
           type="button"
           onClick={() => void loadAdminData()}
-          className="mt-5 rounded-lg bg-rose-200 px-4 py-2 font-semibold text-slate-950"
+          className="mt-5 rounded-lg bg-rose-200 px-4 py-2 font-semibold text-[#161d19]"
         >
           Try again
         </button>
@@ -180,18 +180,18 @@ function AdminPanel() {
   return (
     <div className="space-y-10">
       <header>
-        <p className="text-sm font-medium text-emerald-400">Platform operations</p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <p className="text-sm font-medium text-[#007a2a]">Platform operations</p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#161d19] sm:text-4xl">
           Admin Panel
         </h1>
-        <p className="mt-3 max-w-2xl text-slate-400">
+        <p className="mt-3 max-w-2xl text-[#536158]">
           Monitor engagement, manage account access, and close the loop on user feedback.
         </p>
       </header>
 
       {error && (
         <p
-          className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-300"
+          className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-[#a43a3a]"
           role="alert"
         >
           {error}
@@ -229,8 +229,8 @@ function AdminPanel() {
       <section className="space-y-5">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold text-white">User management</h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <h2 className="text-2xl font-semibold text-[#161d19]">User management</h2>
+            <p className="mt-1 text-sm text-[#6c7a71]">
               {filteredUsers.length} of {users.length} accounts shown
             </p>
           </div>
@@ -241,13 +241,13 @@ function AdminPanel() {
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search name or email"
               aria-label="Search users"
-              className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+              className="rounded-lg border border-[#b9c8bd] bg-white px-3 py-2 text-sm text-[#161d19] outline-none focus:border-emerald-500"
             />
             <select
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value)}
               aria-label="Filter users by status"
-              className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+              className="rounded-lg border border-[#b9c8bd] bg-white px-3 py-2 text-sm text-[#161d19] outline-none focus:border-emerald-500"
             >
               <option value="all">All statuses</option>
               <option value="active">Active</option>
@@ -258,7 +258,7 @@ function AdminPanel() {
               value={roleFilter}
               onChange={(event) => setRoleFilter(event.target.value)}
               aria-label="Filter users by role"
-              className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+              className="rounded-lg border border-[#b9c8bd] bg-white px-3 py-2 text-sm text-[#161d19] outline-none focus:border-emerald-500"
             >
               <option value="all">All roles</option>
               <option value="user">Users</option>
@@ -268,7 +268,7 @@ function AdminPanel() {
         </div>
 
         {filteredUsers.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-700 py-14 text-center text-sm text-slate-500">
+          <div className="rounded-2xl border border-dashed border-[#b9c8bd] py-14 text-center text-sm text-[#6c7a71]">
             No users match these filters.
           </div>
         ) : (
@@ -286,14 +286,14 @@ function AdminPanel() {
       <section className="space-y-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold text-white">Feedback inbox</h2>
-            <p className="mt-1 text-sm text-slate-500">Resolve or dismiss submitted feedback.</p>
+            <h2 className="text-2xl font-semibold text-[#161d19]">Feedback inbox</h2>
+            <p className="mt-1 text-sm text-[#6c7a71]">Resolve or dismiss submitted feedback.</p>
           </div>
           <select
             value={feedbackFilter}
             onChange={(event) => setFeedbackFilter(event.target.value)}
             aria-label="Filter feedback by status"
-            className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white outline-none focus:border-emerald-500"
+            className="rounded-lg border border-[#b9c8bd] bg-white px-3 py-2 text-sm text-[#161d19] outline-none focus:border-emerald-500"
           >
             <option value="open">Open</option>
             <option value="resolved">Resolved</option>

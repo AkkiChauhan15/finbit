@@ -2,19 +2,17 @@ import FormField from '../FormField.jsx';
 
 function IncomeForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubmit, values }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:p-6">
+    <section className="rounded-2xl border border-[#cbd7ce] bg-white shadow-soft p-5 sm:p-6">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
-          Money in
-        </p>
-        <h2 className="mt-2 text-xl font-semibold text-white">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#007a2a]">Money in</p>
+        <h2 className="mt-2 text-xl font-semibold text-[#161d19]">
           {isEditing ? 'Edit income' : 'Add income'}
         </h2>
       </div>
       <form className="mt-6 space-y-4" onSubmit={onSubmit} noValidate>
         {errors.form && (
           <p
-            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300"
+            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-[#a43a3a]"
             role="alert"
           >
             {errors.form}
@@ -55,7 +53,7 @@ function IncomeForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSub
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-lg bg-emerald-500 px-4 py-2.5 font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-[#00bc44] px-4 py-2.5 font-semibold text-[#161d19] transition hover:bg-[#18c950] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? 'Saving…' : isEditing ? 'Update income' : 'Add income'}
           </button>
@@ -63,7 +61,7 @@ function IncomeForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSub
             <button
               type="button"
               onClick={onCancel}
-              className="rounded-lg border border-slate-700 px-4 py-2.5 text-slate-300 hover:bg-slate-800"
+              className="rounded-lg border border-[#b9c8bd] px-4 py-2.5 text-[#35443a] hover:bg-[#e8f0e9]"
             >
               Cancel
             </button>

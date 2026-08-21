@@ -1,0 +1,253 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Financial Habit Builder - Admin Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {error: "#ba1a1a", "on-error-container": "#93000a", "on-secondary-container": "#fffbff", "surface-bright": "#f4fbf4", "surface-dim": "#d4dcd5", "surface-container-high": "#e3eae3", "secondary-fixed": "#e1e0ff", surface: "#f4fbf4", "inverse-on-surface": "#ebf3eb", "on-surface": "#161d19", "surface-container": "#e8f0e9", secondary: "#4648d4", tertiary: "#a43a3a", "surface-tint": "#006e24", "tertiary-container": "#fc7c78", "secondary-fixed-dim": "#c0c1ff", "on-primary-fixed": "#002106", "on-tertiary-fixed": "#410005", "on-primary": "#ffffff", "on-primary-fixed-variant": "#005319", "on-error": "#ffffff", "on-secondary": "#ffffff", "primary-fixed-dim": "#31e45c", "surface-container-lowest": "#ffffff", "on-secondary-fixed": "#07006c", "on-background": "#161d19", "surface-container-highest": "#dde4dd", "inverse-primary": "#31e45c", "primary-container": "#00bc44", "surface-variant": "#dde4dd", "tertiary-fixed-dim": "#ffb3af", "surface-container-low": "#eef6ee", "on-primary-container": "#004313", primary: "#006e24", "on-surface-variant": "#3c4a42", "on-secondary-fixed-variant": "#2f2ebe", "tertiary-fixed": "#ffdad7", "error-container": "#ffdad6", "secondary-container": "#6063ee", "on-tertiary-fixed-variant": "#842225", "inverse-surface": "#2b322d", "outline-variant": "#bbcabf", background: "#f4fbf4", "primary-fixed": "#6dff80", "on-tertiary-container": "#711419", outline: "#6c7a71", "on-tertiary": "#ffffff"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"0": "0px", "6": "32px", gutter: "24px", "3": "12px", "2": "8px", "1": "4px", "5": "24px", "margin-mobile": "16px", "10": "64px", "8": "48px", "4": "16px", "margin-desktop": "40px"}, fontFamily: {"label-md": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}], "headline-md": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "700"}]}}}};</script>
+<style>
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); }
+        .soft-shadow { box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.04); }
+        body { background-color: #FAFAF9; } /* Level 0 Background per specs */
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-background font-body-md antialiased pb-20 md:pb-0 md:pl-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface docked full-width top-0 sticky z-40 bg-surface dark:bg-inverse-surface shadow-sm shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16">
+<h1 class="font-headline-md-mobile text-headline-md-mobile md:font-headline-md md:text-headline-md font-bold text-primary dark:text-inverse-primary">Financial Habit Builder</h1>
+<div class="flex items-center gap-4">
+<button aria-label="notifications" class="hover:text-primary transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="help_outline" class="hover:text-primary transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<img alt="User avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-2" data-alt="A small, professional headshot of an administrator in a corporate setting. High-quality lighting, minimal background to indicate a system user avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI_9txxLorAZnOPpppVREnGtzzwm5kjemyvGgbeiCrudZ_Pf8T7OjQZjbpCmfhR75QE7fMbPbhJinfizNCSdMVrGm7V8WDIrKAO-d8e1QjCLJmN4h2ggdATg3tXEK4IYQbsfjpBpFWCRGRmVhH_yuUZg8WXp5FQ97Pd2OZ57bDYioc7DDw_15Ud6sZvV9IarMc-G2BG-uGftr6uWINCP123U08P1wHw7PHnoeffkVNBOXXuzx03oE">
+</div>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile, Visible on md) -->
+<nav class="h-screen w-64 hidden md:flex flex-col sticky left-0 top-0 bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flat no shadows flex flex-col py-6 px-4 fixed">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">WealthTracker</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Premium Growth</p>
+</div>
+<ul class="flex-1 space-y-2">
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span> Expense Tracker
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span> Habit Tracker
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="savings">savings</span> Savings Goals
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span> Wealth Analytics
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Profile Settings
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-primary dark:text-inverse-primary font-bold border-r-4 border-primary font-label-md text-label-md Active: opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel">flip_camera_ios</span> Admin Panel
+                </a>
+</li>
+</ul>
+<div class="mt-auto">
+<a class="flex items-center gap-3 p-3 rounded-lg hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors text-on-surface-variant dark:text-surface-variant font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span> Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-6 space-y-6">
+<!-- Admin Header Section -->
+<section>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-background mb-2">System Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage platform health and user activity.</p>
+</section>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Total Active Users -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 soft-shadow">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Active Users</h3>
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-background">12,450</div>
+<div class="mt-2 flex items-center gap-1 font-label-sm text-label-sm">
+<span class="bg-[#D1FAE5] text-[#065F46] px-2 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="arrow_upward">arrow_upward</span> 14%</span>
+<span class="text-on-surface-variant">vs last month</span>
+</div>
+</div>
+<!-- Total Savings Tracked -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 soft-shadow">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-md text-label-md text-on-surface-variant">Savings Tracked</h3>
+<span class="material-symbols-outlined text-primary" data-icon="savings">savings</span>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-background">$4.2M</div>
+<div class="mt-2 flex items-center gap-1 font-label-sm text-label-sm">
+<span class="bg-[#D1FAE5] text-[#065F46] px-2 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="arrow_upward">arrow_upward</span> 8%</span>
+<span class="text-on-surface-variant">vs last month</span>
+</div>
+</div>
+<!-- Platform Errors -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 soft-shadow">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-md text-label-md text-on-surface-variant">System Errors</h3>
+<span class="material-symbols-outlined text-error" data-icon="error_outline">error_outline</span>
+</div>
+<div class="font-headline-xl text-headline-xl text-on-background">24</div>
+<div class="mt-2 flex items-center gap-1 font-label-sm text-label-sm">
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="arrow_upward">arrow_upward</span> 2%</span>
+<span class="text-on-surface-variant">vs yesterday</span>
+</div>
+</div>
+<!-- Quick Action Card -->
+<div class="bg-primary text-on-primary rounded-lg p-4 soft-shadow flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md mb-1 opacity-90">Generate Report</h3>
+<p class="font-body-sm text-body-sm opacity-80 mb-4">Export monthly analytics.</p>
+</div>
+<button class="bg-on-primary text-primary font-label-md text-label-md px-4 py-2 rounded-md w-full flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="download">download</span> Export CSV
+                </button>
+</div>
+</section>
+<!-- User Management & Inbox Split -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- User Management (Cards, not table) -->
+<section class="lg:col-span-2 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-background">Flagged Accounts</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- User Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 soft-shadow flex flex-col">
+<div class="flex items-start justify-between mb-3">
+<div class="flex items-center gap-3">
+<img alt="User portrait" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a male user in his 30s. Professional lighting, neutral corporate background. He is wearing a simple dark blue button-down shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1nr9ya-ZTKCQnv2VRGx9RJvSCireRLHx--klzXaorXgNIUFZqBPxO3TsuQesG82drZ7Oe2mHXnVoMjI_JiRG8TgxxQjSkdJYz9deNReFlkkzGbVmt5op__j1OxP7ZHNNTiTD8De4ZaHG4VmpApYjF4p1YvfNp09zNX6Isb03sX9_Kpfus29WXqMtxb43PdX7_SrMSXUBFqhcj6j0949NzZ4ZDeI91uRNCyEX4aiG1IryMuKxZ-zI">
+<div>
+<div class="font-label-md text-label-md text-on-background">Michael R.</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ID: #8492</div>
+</div>
+</div>
+<span class="bg-[#FFFBEB] text-[#B45309] px-2 py-0.5 rounded-full font-label-sm text-label-sm border border-[#FDE68A]">Review</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex-1">Unusual pattern of rapid habit completions detected over 24h.</p>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-surface border border-outline-variant text-on-background font-label-sm text-label-sm py-2 rounded-md hover:bg-surface-container transition-colors">Details</button>
+<button class="flex-1 bg-primary text-on-primary font-label-sm text-label-sm py-2 rounded-md hover:opacity-90 transition-opacity">Resolve</button>
+</div>
+</div>
+<!-- User Card 2 -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 soft-shadow flex flex-col">
+<div class="flex items-start justify-between mb-3">
+<div class="flex items-center gap-3">
+<img alt="User portrait" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a female user in her 40s. Well-lit, soft corporate environment. Wearing a light gray blazer and glasses." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7dv4zDu4Q070f84oD---L2lrpM5Zxj1EBtzy4b7kGOXvEOuIgLOoaA1OYtLokgErDk_iufJbd95YmbXu8G-N_8N3vvSuAGDN5WWao2QvOhHPimP7sS1U0nA4JWsdHUQQcrdOzuV17ofa16Hb1Vb5bxtfcW6Jgb2DoC0r1-P5wHgei9xslpYRk4Xuda0kqDIfltubupQe6td-OHgUZ2jgADNvJyNugIB8eYgox-Vx-a8kxkOyDHdk">
+<div>
+<div class="font-label-md text-label-md text-on-background">Sarah J.</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ID: #1104</div>
+</div>
+</div>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-full font-label-sm text-label-sm border border-error/20">Suspended</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex-1">Multiple failed payment attempts for premium subscription.</p>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-surface border border-outline-variant text-on-background font-label-sm text-label-sm py-2 rounded-md hover:bg-surface-container transition-colors">Details</button>
+<button class="flex-1 bg-surface border border-outline-variant text-on-background font-label-sm text-label-sm py-2 rounded-md hover:bg-surface-container transition-colors">Contact</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Compact Admin Inbox -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-background">System Alerts</h3>
+<span class="bg-primary text-on-primary w-6 h-6 rounded-full flex items-center justify-center font-label-sm text-label-sm">3</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant soft-shadow divide-y divide-outline-variant">
+<div class="p-4 hover:bg-surface-container-low transition-colors cursor-pointer flex gap-3">
+<div class="w-2 h-2 bg-primary rounded-full mt-2 shrink-0"></div>
+<div>
+<div class="font-label-md text-label-md text-on-background mb-1">API Rate Limit Warning</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Plaid integration approaching 90% of daily quota. Consider upgrading tier.</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-2 opacity-70">10 mins ago</div>
+</div>
+</div>
+<div class="p-4 hover:bg-surface-container-low transition-colors cursor-pointer flex gap-3">
+<div class="w-2 h-2 bg-primary rounded-full mt-2 shrink-0"></div>
+<div>
+<div class="font-label-md text-label-md text-on-background mb-1">Database Backup Complete</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Automated snapshot created successfully in US-East region.</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-2 opacity-70">2 hours ago</div>
+</div>
+</div>
+<div class="p-4 hover:bg-surface-container-low transition-colors cursor-pointer flex gap-3">
+<div class="w-2 h-2 bg-transparent rounded-full mt-2 shrink-0"></div>
+<div>
+<div class="font-label-md text-label-md text-on-background mb-1">New Policy Update Ready</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Draft for updated terms of service requires final admin approval before broadcast.</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-2 opacity-70">Yesterday</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Hidden on Desktop) -->
+<nav class="bg-surface dark:bg-inverse-surface docked full-width bottom-0 fixed md:hidden z-50 bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-2 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="task_alt">task_alt</span>
+<span>Habits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="payments">payments</span>
+<span>Wealth</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1 font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="trending_up">trending_up</span>
+<span>Analytics</span>
+</a>
+<!-- Admin isn't technically in the bottom nav JSON labels, mapping closest intent or defaulting inactive since it's an admin view not a standard user view. For strict mapping, Profile is closest to settings/admin, but we'll leave it inactive as it's a separate shell context, or active Profile if we must. Since Admin Panel is distinct, let's keep bottom nav inactive to show we are in a sub-section. -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 font-label-sm text-label-sm Active: scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+</body></html>

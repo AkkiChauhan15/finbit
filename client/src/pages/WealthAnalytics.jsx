@@ -182,11 +182,11 @@ function WealthAnalytics() {
     <div className="space-y-8">
       <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm font-medium text-emerald-400">Portfolio perspective</p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <p className="text-sm font-medium text-[#007a2a]">Portfolio perspective</p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#161d19] sm:text-4xl">
             Wealth Analytics
           </h1>
-          <p className="mt-3 max-w-2xl text-slate-400">
+          <p className="mt-3 max-w-2xl text-[#536158]">
             Understand allocation, historical net worth, and how consistently monthly income becomes
             savings.
           </p>
@@ -195,21 +195,21 @@ function WealthAnalytics() {
           type="button"
           disabled={isSnapshotting}
           onClick={createSnapshot}
-          className="rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-emerald-400 disabled:opacity-50"
+          className="rounded-lg bg-[#00bc44] px-4 py-2.5 text-sm font-semibold text-[#161d19] hover:bg-[#18c950] disabled:opacity-50"
         >
           {isSnapshotting ? 'Recording…' : 'Record net worth snapshot'}
         </button>
       </header>
 
       {hasUnsnapshottedChanges && (
-        <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+        <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-[#805600]">
           Asset values changed. Record a snapshot when you want those values added to net worth
           history.
         </p>
       )}
       {error && (
         <p
-          className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-300"
+          className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-[#a43a3a]"
           role="alert"
         >
           {error}
@@ -245,8 +245,8 @@ function WealthAnalytics() {
                     onClick={() => setRange(option.value)}
                     className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
                       range === option.value
-                        ? 'bg-emerald-500 text-slate-950'
-                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                        ? 'bg-[#00bc44] text-[#161d19]'
+                        : 'bg-[#e8f0e9] text-[#35443a] hover:bg-[#d7e2d9]'
                     }`}
                   >
                     {option.label}

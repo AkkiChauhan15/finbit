@@ -3,7 +3,70 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
+    color: #161d19;
+    background: #f4fbf4;
+    font-synthesis: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: #f4fbf4;
+  }
+
   body {
-    @apply min-h-screen bg-slate-950 text-slate-100 antialiased;
+    @apply min-h-screen bg-[#f4fbf4] text-[#161d19] antialiased;
+    margin: 0;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: #b7f4c5;
+    color: #003e14;
+  }
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-2xl border border-[#cbd7ce] bg-white shadow-[0_3px_10px_rgba(22,29,25,0.06)];
+  }
+
+  .primary-button {
+    @apply rounded-lg bg-[#00bc44] px-4 py-2.5 font-semibold text-[#003e14] shadow-sm transition hover:bg-[#19cc52] focus:outline-none focus:ring-4 focus:ring-[#00bc44]/20 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .secondary-button {
+    @apply rounded-lg border border-[#b9c8bd] bg-white px-4 py-2.5 font-semibold text-[#26352c] transition hover:bg-[#eef6ee] focus:outline-none focus:ring-4 focus:ring-[#4648d4]/10 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold tracking-[-0.025em] text-[#161d19] sm:text-4xl;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 }

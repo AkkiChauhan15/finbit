@@ -1,0 +1,247 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Savings Goals - Financial Habit Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {error: "#ba1a1a", "on-error-container": "#93000a", "on-secondary-container": "#fffbff", "surface-bright": "#f4fbf4", "surface-dim": "#d4dcd5", "surface-container-high": "#e3eae3", "secondary-fixed": "#e1e0ff", surface: "#f4fbf4", "inverse-on-surface": "#ebf3eb", "on-surface": "#161d19", "surface-container": "#e8f0e9", secondary: "#4648d4", tertiary: "#a43a3a", "surface-tint": "#006e24", "tertiary-container": "#fc7c78", "secondary-fixed-dim": "#c0c1ff", "on-primary-fixed": "#002106", "on-tertiary-fixed": "#410005", "on-primary": "#ffffff", "on-primary-fixed-variant": "#005319", "on-error": "#ffffff", "on-secondary": "#ffffff", "primary-fixed-dim": "#31e45c", "surface-container-lowest": "#ffffff", "on-secondary-fixed": "#07006c", "on-background": "#161d19", "surface-container-highest": "#dde4dd", "inverse-primary": "#31e45c", "primary-container": "#00bc44", "surface-variant": "#dde4dd", "tertiary-fixed-dim": "#ffb3af", "surface-container-low": "#eef6ee", "on-primary-container": "#004313", primary: "#006e24", "on-surface-variant": "#3c4a42", "on-secondary-fixed-variant": "#2f2ebe", "tertiary-fixed": "#ffdad7", "error-container": "#ffdad6", "secondary-container": "#6063ee", "on-tertiary-fixed-variant": "#842225", "inverse-surface": "#2b322d", "outline-variant": "#bbcabf", background: "#f4fbf4", "primary-fixed": "#6dff80", "on-tertiary-container": "#711419", outline: "#6c7a71", "on-tertiary": "#ffffff"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"0": "0px", "6": "32px", gutter: "24px", "3": "12px", "2": "8px", "1": "4px", "5": "24px", "margin-mobile": "16px", "10": "64px", "8": "48px", "4": "16px", "margin-desktop": "40px"}, fontFamily: {"label-md": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {"label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}], "headline-md": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "700"}]}}}};</script>
+<style>
+        .shadow-soft { box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.03); }
+        .shadow-hover { box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.04); }
+        .transition-shadow { transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface h-screen w-64 hidden md:flex flex-col sticky left-0 top-0 border-r border-outline-variant dark:border-outline py-6 px-4 shrink-0">
+<div class="mb-8 px-2">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">WealthTracker</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Premium Growth</p>
+</div>
+<div class="flex flex-col gap-2 w-full">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Expense Tracker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-md text-label-md">Habit Tracker</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-inverse-primary font-bold border-r-4 border-primary bg-surface-container-high opacity-80 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">savings</span>
+<span class="font-label-md text-label-md">Savings Goals</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Wealth Analytics</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2 w-full border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Profile Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface shadow-sm docked full-width top-0 sticky z-40 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md-mobile text-headline-md-mobile md:font-headline-md md:text-headline-md font-bold text-primary dark:text-inverse-primary">Financial Habit Builder</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/20 transition-all">
+<input class="bg-transparent border-none outline-none text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant/70 focus:ring-0 w-48" placeholder="Search goals..." type="text">
+<span class="material-symbols-outlined text-on-surface-variant ml-2">search</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User profile picture" class="object-cover w-full h-full" data-alt="A small, professional avatar portrait of a modern user against a clean, light studio background, soft lighting, ensuring high-end UI feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnyN1wtmPuozQPG4TQ2vRHV-7ce-Phu5gd9CLyXxbnTsyiRmKrqOBxmZvt2QfPwg4f-wyLoxJTK0u2fXHpNv10MmyqACwZiXn1Lc2ciFT-ZjFuuiVUyO4AbnilGTlGddx3K4KZn6U6BoMpdhMUkRBn3GI7to2edDGh-fNmI8uiNQucDL5J7e6NNWdu_-ewFMj2dFpI7Ej8JfLVh8JLkOqNz56B2U1eYShnza4K0In0cytbr_W0se4">
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop overflow-y-auto w-full max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-background mb-1">Savings Goals</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Track and accelerate your financial milestones.</p>
+</div>
+<button class="bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-md shadow-soft hover:shadow-hover transition-shadow flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    New Goal
+                </button>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Goals Cards Column (Takes up 2 cols on lg) -->
+<div class="lg:col-span-2 flex flex-col gap-5">
+<!-- High Priority / On Track Goal -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 shadow-soft hover:shadow-hover transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">house</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background text-[20px] leading-tight">Emergency Fund</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Safety Net</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="bg-[#D1FAE5] text-[#065F46] font-label-sm text-label-sm px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> On Track
+                                </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="font-bold text-on-background">$15,000</span>
+<span class="text-on-surface-variant">Target: $20,000</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 75%;"></div>
+</div>
+<div class="flex justify-between mt-2 text-label-sm font-label-sm text-on-surface-variant">
+<span>75% Completed</span>
+<span>Projected: Dec 2024</span>
+</div>
+</div>
+<div class="flex justify-end border-t border-outline-variant pt-3 mt-2">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-background font-label-md text-label-md px-4 py-2 rounded-md hover:bg-surface-container-low transition-colors">
+                                Contribute
+                            </button>
+</div>
+</div>
+<!-- Behind Schedule Goal -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-4 shadow-soft hover:shadow-hover transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#F59E0B]"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-[#B45309]">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background text-[20px] leading-tight">New Car Downpayment</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Vehicle</p>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="bg-[#FEF3C7] text-[#92400E] font-label-sm text-label-sm px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Behind
+                                </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="font-bold text-on-background">$2,500</span>
+<span class="text-on-surface-variant">Target: $8,000</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-[#F59E0B] h-full rounded-full" style="width: 31%;"></div>
+</div>
+<div class="flex justify-between mt-2 text-label-sm font-label-sm text-on-surface-variant">
+<span>31% Completed</span>
+<span>Target Date: Aug 2024</span>
+</div>
+</div>
+<div class="flex justify-end border-t border-outline-variant pt-3 mt-2">
+<button class="bg-surface-container-lowest border border-outline-variant text-on-background font-label-md text-label-md px-4 py-2 rounded-md hover:bg-surface-container-low transition-colors">
+                                Contribute
+                            </button>
+</div>
+</div>
+</div>
+<!-- Create/Edit Form Column -->
+<div class="lg:col-span-1">
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-5 shadow-soft sticky top-24">
+<h3 class="font-headline-md text-headline-md text-on-background mb-4 text-[20px]">Create New Goal</h3>
+<form class="flex flex-col gap-4">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Goal Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md px-3 py-2 text-body-md font-body-md focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 outline-none transition-all" placeholder="e.g. Vacation Fund" type="text">
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Target Amount</label>
+<div class="relative">
+<span class="absolute left-3 top-2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md pl-7 pr-3 py-2 text-body-md font-body-md focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 outline-none transition-all" placeholder="0.00" type="number">
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Target Date</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-md px-3 py-2 text-body-md font-body-md focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 outline-none transition-all" type="date">
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Category</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-md px-3 py-2 text-body-md font-body-md focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 outline-none transition-all">
+<option>Safety Net</option>
+<option>Travel</option>
+<option>Housing</option>
+<option>Education</option>
+<option>Other</option>
+</select>
+</div>
+<div class="pt-2">
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md px-4 py-2 rounded-md shadow-soft hover:opacity-90 transition-opacity" type="button">
+                                    Save Goal
+                                </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface dark:bg-inverse-surface border-t border-outline-variant shadow-lg docked full-width bottom-0 fixed md:hidden z-50 flex justify-around items-center h-16 px-2 pb-safe w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="font-label-sm text-label-sm">Habits</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-sm text-label-sm">Wealth</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

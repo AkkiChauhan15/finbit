@@ -12,11 +12,11 @@ function GoalForm({
   values,
 }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400">
+    <section className="rounded-2xl border border-[#cbd7ce] bg-white shadow-soft p-5 sm:p-6">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#007a2a]">
         Plan with purpose
       </p>
-      <h2 className="mt-2 text-xl font-semibold text-white">
+      <h2 className="mt-2 text-xl font-semibold text-[#161d19]">
         {isEditing ? 'Edit savings goal' : 'Create a savings goal'}
       </h2>
       <form
@@ -26,7 +26,7 @@ function GoalForm({
       >
         {errors.form && (
           <p
-            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300 sm:col-span-2 lg:col-span-4"
+            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-[#a43a3a] sm:col-span-2 lg:col-span-4"
             role="alert"
           >
             {errors.form}
@@ -67,7 +67,7 @@ function GoalForm({
           error={errors.targetDate}
         />
         <div>
-          <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="goal-category">
+          <label className="mb-2 block text-sm font-medium text-[#26352c]" htmlFor="goal-category">
             Category
           </label>
           <select
@@ -75,7 +75,7 @@ function GoalForm({
             name="category"
             value={values.category}
             onChange={onChange}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full rounded-lg border border-[#b9c8bd] bg-[#f4fbf4] px-3 py-2.5 text-[#161d19] outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
           >
             {goalCategories.map((category) => (
               <option key={category} value={category}>
@@ -83,13 +83,13 @@ function GoalForm({
               </option>
             ))}
           </select>
-          {errors.category && <p className="mt-1.5 text-sm text-rose-400">{errors.category}</p>}
+          {errors.category && <p className="mt-1.5 text-sm text-[#a43a3a]">{errors.category}</p>}
         </div>
         <div className="flex flex-col gap-2 sm:col-span-2 sm:flex-row lg:col-span-4">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-lg bg-emerald-500 px-4 py-2.5 font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-[#00bc44] px-4 py-2.5 font-semibold text-[#161d19] transition hover:bg-[#18c950] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? 'Saving…' : isEditing ? 'Update goal' : 'Create goal'}
           </button>
@@ -97,7 +97,7 @@ function GoalForm({
             <button
               type="button"
               onClick={onCancel}
-              className="rounded-lg border border-slate-700 px-4 py-2.5 text-slate-300 hover:bg-slate-800"
+              className="rounded-lg border border-[#b9c8bd] px-4 py-2.5 text-[#35443a] hover:bg-[#e8f0e9]"
             >
               Cancel
             </button>

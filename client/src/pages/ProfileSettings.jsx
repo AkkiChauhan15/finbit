@@ -63,10 +63,10 @@ function ProfileSettings() {
   };
 
   return (
-    <section className="mx-auto max-w-2xl rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl shadow-black/20 sm:p-8">
-      <p className="text-sm font-medium text-emerald-400">Account settings</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-white">Financial profile</h1>
-      <p className="mt-3 text-slate-400">
+    <section className="mx-auto max-w-2xl rounded-2xl border border-[#cbd7ce] bg-white p-6 shadow-soft sm:p-8">
+      <p className="text-sm font-medium text-[#007a2a]">Account settings</p>
+      <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#161d19]">Financial profile</h1>
+      <p className="mt-3 text-[#536158]">
         Keep your display name and the defaults used for future financial planning features up to
         date.
       </p>
@@ -77,8 +77,8 @@ function ProfileSettings() {
             role="status"
             className={`rounded-lg border px-3 py-2 text-sm ${
               status.type === 'success'
-                ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
-                : 'border-rose-500/40 bg-rose-500/10 text-rose-300'
+                ? 'border-emerald-500/40 bg-[#00bc44]/10 text-[#006e24]'
+                : 'border-rose-500/40 bg-rose-500/10 text-[#a43a3a]'
             }`}
           >
             {status.message}
@@ -95,7 +95,7 @@ function ProfileSettings() {
         />
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[#26352c]"
             htmlFor="profile-currency"
           >
             Preferred currency
@@ -105,7 +105,7 @@ function ProfileSettings() {
             name="currency"
             value={values.currency}
             onChange={updateValue}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full rounded-lg border border-[#b9c8bd] bg-[#f4fbf4] px-3 py-2.5 text-[#161d19] outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
           >
             {currencies.map((currency) => (
               <option key={currency} value={currency}>
@@ -125,11 +125,7 @@ function ProfileSettings() {
           onChange={updateValue}
           error={errors.monthlyIncomeGoal}
         />
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full rounded-lg bg-emerald-500 px-4 py-2.5 font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
-        >
+        <button type="submit" disabled={isSubmitting} className="primary-button w-full sm:w-auto">
           {isSubmitting ? 'Saving…' : 'Save changes'}
         </button>
       </form>

@@ -119,11 +119,11 @@ function HabitTracker() {
   return (
     <div className="space-y-8">
       <header>
-        <p className="text-sm font-medium text-emerald-400">Consistency compounds</p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <p className="text-sm font-medium text-[#007a2a]">Consistency compounds</p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#161d19] sm:text-4xl">
           Habit Tracker
         </h1>
-        <p className="mt-3 max-w-2xl text-slate-400">
+        <p className="mt-3 max-w-2xl text-[#536158]">
           Turn useful financial actions into repeatable routines and keep an eye on habits that are
           due.
         </p>
@@ -139,7 +139,7 @@ function HabitTracker() {
 
       {actionError && (
         <p
-          className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-300"
+          className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-[#a43a3a]"
           role="alert"
         >
           {actionError}
@@ -150,20 +150,20 @@ function HabitTracker() {
         <PageSkeleton label="Loading your habits" cards={2} sections={1} />
       ) : loadError ? (
         <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 px-6 py-10 text-center">
-          <p className="font-medium text-rose-200">We couldn’t load your habits.</p>
-          <p className="mt-2 text-sm text-rose-300/80">{loadError}</p>
+          <p className="font-medium text-[#842225]">We couldn’t load your habits.</p>
+          <p className="mt-2 text-sm text-[#9b4a4a]">{loadError}</p>
           <button
             type="button"
             onClick={() => void loadHabits()}
-            className="mt-5 rounded-lg bg-rose-200 px-4 py-2 font-semibold text-slate-950"
+            className="mt-5 rounded-lg bg-rose-200 px-4 py-2 font-semibold text-[#161d19]"
           >
             Try again
           </button>
         </div>
       ) : habits.length === 0 ? (
-        <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 px-6 py-16 text-center">
-          <p className="text-lg font-semibold text-slate-200">No active habits yet</p>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+        <section className="rounded-2xl border border-dashed border-[#b9c8bd] bg-white/70 px-6 py-16 text-center">
+          <p className="text-lg font-semibold text-[#26352c]">No active habits yet</p>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#6c7a71]">
             Start with one small action you can repeat. Your streak and 30-day history will appear
             here.
           </p>
@@ -172,12 +172,12 @@ function HabitTracker() {
         <section>
           <div className="mb-4 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold text-white">Active habits</h2>
-              <p className="mt-1 text-sm text-slate-500">
+              <h2 className="text-2xl font-semibold text-[#161d19]">Active habits</h2>
+              <p className="mt-1 text-sm text-[#6c7a71]">
                 Amber indicators are in-app reminders for the current period.
               </p>
             </div>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-[#6c7a71]">
               {habits.length} {habits.length === 1 ? 'habit' : 'habits'}
             </p>
           </div>

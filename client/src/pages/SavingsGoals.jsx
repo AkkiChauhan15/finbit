@@ -198,11 +198,11 @@ function SavingsGoals() {
   return (
     <div className="space-y-8">
       <header>
-        <p className="text-sm font-medium text-emerald-400">Make progress visible</p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <p className="text-sm font-medium text-[#007a2a]">Make progress visible</p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[#161d19] sm:text-4xl">
           Savings Goals
         </h1>
-        <p className="mt-3 max-w-2xl text-slate-400">
+        <p className="mt-3 max-w-2xl text-[#536158]">
           Give every major purchase or safety net a target, a timeline, and a contribution rhythm.
         </p>
       </header>
@@ -220,7 +220,7 @@ function SavingsGoals() {
 
       {actionError && (
         <p
-          className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200"
+          className="rounded-lg border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-[#805600]"
           role="alert"
         >
           {actionError}
@@ -231,20 +231,20 @@ function SavingsGoals() {
         <PageSkeleton label="Loading savings goals" cards={2} sections={1} />
       ) : loadError ? (
         <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 px-6 py-10 text-center">
-          <p className="font-medium text-rose-200">We couldn’t load your savings goals.</p>
-          <p className="mt-2 text-sm text-rose-300/80">{loadError}</p>
+          <p className="font-medium text-[#842225]">We couldn’t load your savings goals.</p>
+          <p className="mt-2 text-sm text-[#9b4a4a]">{loadError}</p>
           <button
             type="button"
             onClick={() => void loadGoals()}
-            className="mt-5 rounded-lg bg-rose-200 px-4 py-2 font-semibold text-slate-950"
+            className="mt-5 rounded-lg bg-rose-200 px-4 py-2 font-semibold text-[#161d19]"
           >
             Try again
           </button>
         </div>
       ) : goals.length === 0 ? (
-        <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 px-6 py-16 text-center">
-          <p className="text-lg font-semibold text-slate-200">No savings goals yet</p>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+        <section className="rounded-2xl border border-dashed border-[#b9c8bd] bg-white/70 px-6 py-16 text-center">
+          <p className="text-lg font-semibold text-[#26352c]">No savings goals yet</p>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#6c7a71]">
             Create your first goal above, then use quick contributions to build momentum.
           </p>
         </section>
@@ -252,12 +252,12 @@ function SavingsGoals() {
         <section>
           <div className="mb-4 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-semibold text-white">Your goals</h2>
-              <p className="mt-1 text-sm text-slate-500">
+              <h2 className="text-2xl font-semibold text-[#161d19]">Your goals</h2>
+              <p className="mt-1 text-sm text-[#6c7a71]">
                 Projections use your contribution pace over the last 90 days.
               </p>
             </div>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-[#6c7a71]">
               {goals.length} {goals.length === 1 ? 'goal' : 'goals'}
             </p>
           </div>

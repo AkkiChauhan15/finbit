@@ -3,17 +3,17 @@ import FormField from '../FormField.jsx';
 
 function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSubmit, values }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:p-6">
+    <section className="rounded-2xl border border-[#cbd7ce] bg-white shadow-soft p-5 sm:p-6">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-rose-400">Money out</p>
-        <h2 className="mt-2 text-xl font-semibold text-white">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a43a3a]">Money out</p>
+        <h2 className="mt-2 text-xl font-semibold text-[#161d19]">
           {isEditing ? 'Edit expense' : 'Add expense'}
         </h2>
       </div>
       <form className="mt-6 space-y-4" onSubmit={onSubmit} noValidate>
         {errors.form && (
           <p
-            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300"
+            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-[#a43a3a]"
             role="alert"
           >
             {errors.form}
@@ -21,7 +21,7 @@ function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSu
         )}
         <div>
           <label
-            className="mb-2 block text-sm font-medium text-slate-200"
+            className="mb-2 block text-sm font-medium text-[#26352c]"
             htmlFor="expense-category"
           >
             Category
@@ -31,7 +31,7 @@ function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSu
             name="category"
             value={values.category}
             onChange={onChange}
-            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full rounded-lg border border-[#b9c8bd] bg-[#f4fbf4] px-3 py-2.5 text-[#161d19] outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
           >
             {expenseCategories.map((category) => (
               <option key={category} value={category}>
@@ -39,7 +39,7 @@ function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSu
               </option>
             ))}
           </select>
-          {errors.category && <p className="mt-1.5 text-sm text-rose-400">{errors.category}</p>}
+          {errors.category && <p className="mt-1.5 text-sm text-[#a43a3a]">{errors.category}</p>}
         </div>
         <FormField
           id="expense-amount"
@@ -64,8 +64,8 @@ function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSu
           error={errors.date}
         />
         <div>
-          <label className="mb-2 block text-sm font-medium text-slate-200" htmlFor="expense-notes">
-            Notes <span className="font-normal text-slate-500">(optional)</span>
+          <label className="mb-2 block text-sm font-medium text-[#26352c]" htmlFor="expense-notes">
+            Notes <span className="font-normal text-[#6c7a71]">(optional)</span>
           </label>
           <textarea
             id="expense-notes"
@@ -75,18 +75,18 @@ function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSu
             value={values.notes}
             onChange={onChange}
             placeholder="Add context for this expense"
-            className="w-full resize-y rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none placeholder:text-slate-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full resize-y rounded-lg border border-[#b9c8bd] bg-[#f4fbf4] px-3 py-2.5 text-[#161d19] outline-none placeholder:text-[#87938b] focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
           />
           <div className="mt-1 flex justify-between gap-3 text-xs">
-            <span className="text-rose-400">{errors.notes}</span>
-            <span className="ml-auto text-slate-500">{values.notes.length}/500</span>
+            <span className="text-[#a43a3a]">{errors.notes}</span>
+            <span className="ml-auto text-[#6c7a71]">{values.notes.length}/500</span>
           </div>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-lg bg-rose-400 px-4 py-2.5 font-semibold text-slate-950 transition hover:bg-rose-300 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-[#e56b6f] px-4 py-2.5 font-semibold text-white transition hover:bg-[#d95b60] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? 'Saving…' : isEditing ? 'Update expense' : 'Add expense'}
           </button>
@@ -94,7 +94,7 @@ function ExpenseForm({ errors, isEditing, isSubmitting, onCancel, onChange, onSu
             <button
               type="button"
               onClick={onCancel}
-              className="rounded-lg border border-slate-700 px-4 py-2.5 text-slate-300 hover:bg-slate-800"
+              className="rounded-lg border border-[#b9c8bd] px-4 py-2.5 text-[#35443a] hover:bg-[#e8f0e9]"
             >
               Cancel
             </button>

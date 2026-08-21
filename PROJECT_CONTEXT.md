@@ -11,7 +11,7 @@ This is the running project log. Append a dated phase entry after every future p
 
 ## Current Phase
 
-Phase 10 — Production deployment and live smoke verification (completed 2026-08-21)
+Phase 11 — Stitch frontend redesign integration (completed 2026-08-21)
 
 ## Folder Structure
 
@@ -21,6 +21,8 @@ client/
 ├── src/api/client.js       # Credentialed API client and access-token refresh
 ├── src/auth/               # Auth provider and context
 ├── src/components/         # UI, route guards, global error boundary, and loading skeletons
+│   ├── AppLayout.jsx       # Responsive sidebar, account menu, and mobile navigation shell
+│   └── Icon.jsx            # Dependency-free navigation and brand SVG icon system
 ├── src/constants/          # Shared transaction, habit, goal, and asset metadata
 ├── src/hooks/useAuth.js    # Auth context hook
 ├── src/pages/              # Auth/profile, trackers, financial views, and the Admin Panel
@@ -210,6 +212,10 @@ No environment variables were added.
 - No new application environment keys were introduced.
 - Production values are hosted outside the repository: Render stores `MONGO_URI`, JWT secrets, cookie settings, and the exact `CLIENT_URL`; Vercel stores the public `VITE_API_URL`.
 
+### Phase 11
+
+- No environment variables or API contracts were added or changed.
+
 ## Hardening Summary
 
 - All income, expense, habit, habit-completion, savings-goal, asset, snapshot, report, and dashboard reads/mutations are scoped to the authenticated user. ID-based operations use the shared `ownedRecordFilter`; nested records use `ownedChildFilter`; collection/aggregate queries use `userScope`. The owner condition is applied last and cannot be overridden by supplied conditions.
@@ -226,6 +232,17 @@ No environment variables were added.
 - `npm test` runs ownership-invariant, owner-scope coverage, unknown-field rejection, credential serialization, and client-environment isolation checks without requiring a database.
 - Production startup now fails fast unless MongoDB, distinct strong JWT secrets, an exact HTTPS client origin, and safe bcrypt rounds are configured. Render proxy trust is enabled only in production.
 - Unknown production 5xx failures return only `Internal server error`; stack traces and internal messages remain server-side. The production health endpoint returns `503` if MongoDB is disconnected.
+
+## Frontend Redesign Summary
+
+- Integrated the Stitch `Financial Habit & Wealth System` visual direction while preserving the existing React component behavior, routes, API client, auth context, validation, optimistic mutations, error states, and admin authorization.
+- Replaced the dark UI with the Stitch palette: warm mint surfaces, white bordered cards, deep charcoal text, growth green, restrained indigo data accents, coral expenses, and amber reminder states.
+- Rebuilt the authenticated application shell with a persistent desktop sidebar, sticky header, role-aware account menu, five-destination mobile bottom navigation, and admin/profile links that remain permission-aware.
+- Rebuilt Login/Register around a responsive split-screen brand story and compact mobile form without introducing unsupported social login, remember-me, or password-recovery behavior.
+- Restyled every dashboard, tracker, goal, wealth, profile, admin, table, skeleton, empty state, error state, form field, and Recharts visualization. Financial values use tabular numerals and data-heavy tables retain local horizontal scrolling.
+- Expanded the Financial Dashboard from four combined metric cards to six clearer cards using the same aggregate response: net worth, income, expenses, savings rate, strongest streak, and goals on track. No extra request was introduced.
+- Added dependency-free inline SVG navigation/brand icons rather than loading the Material Symbols web font used by Stitch's static HTML export.
+- Verified the redesigned Login at 1440 px and 375 px, plus authenticated populated Dashboard views at 1440 px and 375 px and Expense Tracker at 1440 px, against an isolated in-memory database. No Atlas records were read or changed.
 
 ## Testing and QA Summary
 
@@ -254,7 +271,7 @@ The completed product now includes secure JWT sessions, financial profiles, cash
 
 ## Known Issues / TODO
 
-- Full real-browser end-to-end automation and screenshot-based responsive visual regression are not included yet; component integration coverage, the disposable API journey, and `MANUAL_QA.md` are the current regression layers.
+- Automated screenshot-based visual regression is not included yet; this redesign received one-off real-browser desktop/mobile visual verification in addition to component integration coverage, the disposable API journey, and `MANUAL_QA.md`.
 - Decide whether multi-device sessions are needed; the current single refresh-token hash intentionally allows one active session per account.
 - Replace the in-memory rate-limit store with a shared Redis-compatible store before horizontally scaling the API.
 - Application-level field encryption is not implemented for financial records; production MongoDB encryption, encrypted backups, TLS, access controls, and key rotation remain deployment responsibilities.
@@ -354,3 +371,12 @@ The completed product now includes secure JWT sessions, financial profiles, cash
 - Persisted `VITE_API_URL` in Vercel and restricted Render `CLIENT_URL` to the stable production alias rather than the immutable one-off deployment URL.
 - Used seed-free, uniquely named QA accounts for live validation. A dedicated test account was temporarily promoted to admin, the full browser/API journeys were completed, and all generated accounts and records were then removed.
 - Confirmed the intentionally wide asset/admin tables stay inside local horizontal-scroll containers; the document itself remains contained at 375 px after responsive chart layout settles.
+
+### 2026-08-21 — Phase 11
+
+- Treated the Stitch export as a visual reference rather than copying its static mock HTML, keeping the tested React state and live API wiring as the behavioral source of truth.
+- Kept the original route paths and role guards. Admin navigation is rendered only for administrators, and the existing `AdminRoute` still rejects direct non-admin navigation.
+- Chose a five-item mobile bottom bar for the highest-frequency product areas; Profile, Admin, and Logout remain available through the account menu so the 375 px navigation stays readable.
+- Used the existing Tailwind and Recharts stack without adding a UI or icon dependency. A small local SVG icon component keeps the shell fast and avoids a runtime font/CDN dependency.
+- Preserved all original fields and actions even where the static Stitch mock showed fewer controls, preventing the redesign from silently removing edit, delete, filtering, validation, or operational states.
+- Verified `npm run lint --workspace client`, `npm test --workspace client` (4 passing), and `npm run build --workspace client` after integration.

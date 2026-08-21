@@ -1,24 +1,24 @@
 import { formatDate } from '../../utils/formatters.js';
 
 const statusClasses = {
-  completed: 'bg-emerald-400 ring-emerald-300/30',
+  completed: 'bg-[#18c950] ring-emerald-300/30',
   pending: 'bg-amber-400/70 ring-amber-300/30',
-  missed: 'bg-slate-800 ring-slate-700/40',
+  missed: 'bg-[#e8f0e9] ring-[#c3d0c6]',
 };
 
 function HabitHistory({ history }) {
   return (
     <div>
       <div className="flex items-center justify-between gap-3">
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-[#6c7a71]">
           Last 30 days
         </p>
-        <div className="flex items-center gap-3 text-[11px] text-slate-500">
+        <div className="flex items-center gap-3 text-[11px] text-[#6c7a71]">
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-sm bg-emerald-400" /> Done
+            <span className="h-2 w-2 rounded-sm bg-[#18c950]" /> Done
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-sm bg-slate-800" /> Missed
+            <span className="h-2 w-2 rounded-sm bg-[#e8f0e9]" /> Missed
           </span>
         </div>
       </div>

@@ -9,18 +9,18 @@ function CategoryBreakdownChart({ currency, formatCurrency, summary, total }) {
   }));
 
   return (
-    <section className="min-w-0 rounded-2xl border border-slate-800 bg-slate-900 p-5 sm:p-6">
+    <section className="min-w-0 rounded-2xl border border-[#cbd7ce] bg-white shadow-soft p-5 sm:p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium text-slate-400">Selected period</p>
-          <h2 className="mt-1 text-xl font-semibold text-white">Expense breakdown</h2>
+          <p className="text-sm font-medium text-[#536158]">Selected period</p>
+          <h2 className="mt-1 text-xl font-semibold text-[#161d19]">Expense breakdown</h2>
         </div>
-        <p className="text-right text-sm font-semibold text-rose-300">
+        <p className="text-right text-sm font-semibold text-[#a43a3a]">
           {formatCurrency(total, currency)}
         </p>
       </div>
       {data.length === 0 ? (
-        <div className="grid h-72 place-items-center text-center text-sm text-slate-500">
+        <div className="grid h-72 place-items-center text-center text-sm text-[#6c7a71]">
           Add an expense in this period to see its category breakdown.
         </div>
       ) : (
@@ -41,14 +41,14 @@ function CategoryBreakdownChart({ currency, formatCurrency, summary, total }) {
               </Pie>
               <Tooltip
                 contentStyle={{
-                  background: '#0f172a',
-                  border: '1px solid #334155',
+                  background: '#ffffff',
+                  border: '1px solid #cbd7ce',
                   borderRadius: 8,
                 }}
-                itemStyle={{ color: '#e2e8f0' }}
+                itemStyle={{ color: '#26352c' }}
                 formatter={(value) => formatCurrency(value, currency)}
               />
-              <Legend wrapperStyle={{ color: '#cbd5e1', fontSize: 12 }} />
+              <Legend wrapperStyle={{ color: '#536158', fontSize: 12 }} />
             </PieChart>
           </ResponsiveContainer>
         </div>

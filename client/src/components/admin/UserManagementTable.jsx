@@ -1,9 +1,9 @@
 import { formatCurrency, formatDate } from '../../utils/formatters.js';
 
 const statusStyles = {
-  active: 'bg-emerald-500/10 text-emerald-300',
-  inactive: 'bg-amber-500/10 text-amber-300',
-  deleted: 'bg-rose-500/10 text-rose-300',
+  active: 'bg-[#00bc44]/10 text-[#006e24]',
+  inactive: 'bg-amber-500/10 text-[#805600]',
+  deleted: 'bg-rose-500/10 text-[#a43a3a]',
 };
 
 function UserManagementTable({
@@ -15,9 +15,9 @@ function UserManagementTable({
   onDelete,
 }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-slate-800">
-      <table className="min-w-[980px] w-full divide-y divide-slate-800 text-left text-sm">
-        <thead className="bg-slate-900/90 text-xs uppercase tracking-wider text-slate-500">
+    <div className="overflow-x-auto rounded-2xl border border-[#cbd7ce]">
+      <table className="min-w-[980px] w-full divide-y divide-[#d7e2d9] text-left text-sm">
+        <thead className="bg-white/95 text-xs uppercase tracking-wider text-[#6c7a71]">
           <tr>
             <th className="px-5 py-4">User</th>
             <th className="px-5 py-4">Status</th>
@@ -27,7 +27,7 @@ function UserManagementTable({
             <th className="px-5 py-4 text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800 bg-slate-900/50">
+        <tbody className="divide-y divide-[#d7e2d9] bg-white/70">
           {users.map((user) => {
             const isSelf = user._id === currentUserId;
             const isBusy = busyId === user._id;
@@ -35,9 +35,9 @@ function UserManagementTable({
             return (
               <tr key={user._id} className="align-top">
                 <td className="px-5 py-4">
-                  <p className="font-semibold text-slate-200">{user.name}</p>
-                  <p className="mt-1 text-xs text-slate-500">{user.email}</p>
-                  <span className="mt-2 inline-flex rounded bg-slate-800 px-2 py-0.5 text-xs capitalize text-slate-300">
+                  <p className="font-semibold text-[#26352c]">{user.name}</p>
+                  <p className="mt-1 text-xs text-[#6c7a71]">{user.email}</p>
+                  <span className="mt-2 inline-flex rounded bg-[#e8f0e9] px-2 py-0.5 text-xs capitalize text-[#35443a]">
                     {user.role}
                   </span>
                 </td>
@@ -48,18 +48,18 @@ function UserManagementTable({
                     {user.status}
                   </span>
                 </td>
-                <td className="px-5 py-4 text-xs text-slate-400">
+                <td className="px-5 py-4 text-xs text-[#536158]">
                   <p>{formatDate(user.joinedAt)}</p>
-                  <p className="mt-1 text-slate-500">
+                  <p className="mt-1 text-[#6c7a71]">
                     {user.lastActiveAt
                       ? `Active ${formatDate(user.lastActiveAt)}`
                       : 'No activity yet'}
                   </p>
                 </td>
-                <td className="px-5 py-4 font-semibold text-slate-200">
+                <td className="px-5 py-4 font-semibold text-[#26352c]">
                   {user.stats.habitCompletionRate}%
                 </td>
-                <td className="px-5 py-4 font-semibold text-slate-200">
+                <td className="px-5 py-4 font-semibold text-[#26352c]">
                   {formatCurrency(user.stats.totalTrackedNetWorth, user.currency)}
                 </td>
                 <td className="px-5 py-4">
@@ -68,7 +68,7 @@ function UserManagementTable({
                       type="button"
                       disabled={isSelf || isBusy || user.status === 'deleted'}
                       onClick={() => onRoleChange(user)}
-                      className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-lg border border-[#b9c8bd] px-3 py-1.5 text-xs font-semibold text-[#35443a] hover:bg-[#e8f0e9] disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       {user.role === 'admin' ? 'Demote' : 'Promote'}
                     </button>
@@ -76,7 +76,7 @@ function UserManagementTable({
                       type="button"
                       disabled={isSelf || isBusy}
                       onClick={() => onStatusChange(user)}
-                      className="rounded-lg border border-amber-500/30 px-3 py-1.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/10 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-lg border border-amber-500/30 px-3 py-1.5 text-xs font-semibold text-[#805600] hover:bg-amber-500/10 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       {user.isActive ? 'Deactivate' : 'Reactivate'}
                     </button>
@@ -85,14 +85,14 @@ function UserManagementTable({
                         type="button"
                         disabled={isSelf || isBusy}
                         onClick={() => onDelete(user)}
-                        className="rounded-lg border border-rose-500/30 px-3 py-1.5 text-xs font-semibold text-rose-300 hover:bg-rose-500/10 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="rounded-lg border border-rose-500/30 px-3 py-1.5 text-xs font-semibold text-[#a43a3a] hover:bg-rose-500/10 disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         Soft-delete
                       </button>
                     )}
                   </div>
                   {isSelf && (
-                    <p className="mt-2 text-right text-xs text-slate-600">Current admin</p>
+                    <p className="mt-2 text-right text-xs text-[#87938b]">Current admin</p>
                   )}
                 </td>
               </tr>

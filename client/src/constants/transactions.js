@@ -22,5 +22,5 @@ export const categoryColors = {
   rent: '#a78bfa',
   utilities: '#fbbf24',
   entertainment: '#fb7185',
-  other: '#94a3b8',
+  other: '#6c7a71',
 };

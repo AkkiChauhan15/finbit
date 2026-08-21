@@ -28,5 +28,5 @@ export const assetTypeColors = {
   retirement: '#fb7185',
   real_estate: '#2dd4bf',
   crypto: '#f97316',
-  other: '#94a3b8',
+  other: '#6c7a71',
 };

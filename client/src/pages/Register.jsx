@@ -67,7 +67,7 @@ function Register() {
       <form className="space-y-5" onSubmit={handleSubmit} noValidate>
         {submitError && (
           <div
-            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-rose-300"
+            className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-sm text-[#a43a3a]"
             role="alert"
           >
             {submitError}
@@ -116,7 +116,7 @@ function Register() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-lg bg-emerald-500 px-4 py-2.5 font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-lg bg-[#00bc44] px-4 py-2.5 font-semibold text-[#161d19] transition hover:bg-[#18c950] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? 'Creating account…' : 'Create account'}
         </button>
