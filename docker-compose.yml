@@ -1,0 +1,57 @@
+# Local full-stack environment.
+#   docker compose up --build
+#   App: http://localhost:8080   API health: http://localhost:8080/api/health
+#   Port 8080 busy? CLIENT_PORT=8088 docker compose up --build
+#
+# The server runs with NODE_ENV=development because production mode requires an
+# HTTPS CLIENT_URL. The production stack lives in deploy/docker-compose.prod.yml.
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: finbit-server:local
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      MONGO_URI: mongodb://mongo:27017/financial_habit_builder
+      JWT_SECRET: ${JWT_SECRET:-local-dev-access-secret-change-me-0123456789}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-local-dev-refresh-secret-change-me-0123456789}
+      JWT_ACCESS_EXPIRES_IN: 15m
+      JWT_REFRESH_EXPIRES_IN: 7d
+      BCRYPT_ROUNDS: 12
+      COOKIE_SECURE: "false"
+      CLIENT_URL: http://localhost:${CLIENT_PORT:-8080}
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    image: finbit-client:local
+    restart: unless-stopped
+    environment:
+      API_UPSTREAM: http://server:5000
+    ports:
+      - "${CLIENT_PORT:-8080}:80"
+    depends_on:
+      server:
+        condition: service_healthy
+
+volumes:
+  mongo-data:

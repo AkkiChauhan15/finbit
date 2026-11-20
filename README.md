@@ -58,6 +58,59 @@ The health endpoint can boot without `MONGO_URI`, but registration, login, sessi
 
 The free Render instance can require a short cold-start period after inactivity.
 
+## Docker
+
+Run the full stack (MongoDB + API + web) locally:
+
+```bash
+docker compose up --build
+# Port 8080 busy?  CLIENT_PORT=8088 docker compose up --build
+```
+
+- App: <http://localhost:8080>, API health: <http://localhost:8080/api/health>
+- `server/Dockerfile`: Express API on `node:22-bookworm-slim`, production deps only, non-root, healthcheck.
+- `client/Dockerfile`: Vite build served by nginx. nginx serves the SPA and proxies `/api` to the API container, so the browser stays on the same origin.
+- Both images build from the repository root, which holds the npm workspace lockfile: `docker build -f server/Dockerfile .`
+
+## Infrastructure (Terraform → AWS)
+
+`terraform/` provisions one EC2 host (Ubuntu 24.04, default VPC) with an Elastic IP, a security group allowing only 80/443, an IAM role for SSM, and generated JWT secrets. On first boot the host installs Docker and runs `deploy/docker-compose.prod.yml`:
+
+```text
+Caddy (auto-HTTPS :443) → client (nginx) → server (Express) → MongoDB (container or Atlas)
+```
+
+With no `domain_name` set, the app is served at `https://<elastic-ip-with-dashes>.sslip.io`, which gives HTTPS (required by the production env checks) without a domain.
+
+```bash
+cd terraform
+cp backend.hcl.example backend.hcl          # point at your S3 state bucket
+cp terraform.tfvars.example terraform.tfvars
+terraform init -backend-config=backend.hcl
+terraform apply
+terraform output app_url
+```
+
+## CI/CD (GitHub Actions)
+
+| Workflow        | Trigger                                          | What it does                                                                                                   |
+| --------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `ci-cd.yml`     | PRs, pushes to `main`, `v*` tags                 | lint, format check, tests, client build → build images (pushed to GHCR except on PRs) → deploy to EC2 over SSM |
+| `terraform.yml` | changes to `terraform/**` or `deploy/**`, manual | `fmt` + `validate` → `plan` → `apply` on `main` (manual dispatch supports `plan`/`apply`/`destroy`)            |
+
+Repository settings to enable deployment:
+
+| Kind     | Name                                         | Purpose                                                     |
+| -------- | -------------------------------------------- | ----------------------------------------------------------- |
+| Secret   | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` | IAM user for Terraform and SSM deploys                      |
+| Secret   | `MONGO_URI` (optional)                       | external MongoDB; omit to use the on-host container         |
+| Variable | `TF_STATE_BUCKET`                            | existing S3 bucket for Terraform state (enables plan/apply) |
+| Variable | `AWS_REGION` (optional, default `us-east-1`) | deployment region                                           |
+| Variable | `APP_DOMAIN` (optional)                      | custom hostname; A record → `public_ip` output              |
+| Variable | `DEPLOY_ENABLED` = `true`                    | turn on the deploy job once infrastructure exists           |
+
+Also create a `production` environment (add required reviewers for a manual approval gate), and after the first image push make the `finbit-server` and `finbit-client` GHCR packages **public** so the EC2 host can pull them without credentials.
+
 ## Authentication configuration
 
 The server environment supports these authentication settings:
@@ -83,7 +136,7 @@ npm run build
 Server tests use an isolated in-memory MongoDB instance and do not read the development database.
 Client tests run in jsdom with Vitest and React Testing Library.
 
-## Demo seed and manual 
+## Demo seed and manual
 
 Use a disposable database whose name contains `qa`, `test`, or `demo`, then run:
 
@@ -100,6 +153,10 @@ are documented in [MANUAL_QA.md](./MANUAL_QA.md).
 .
 ├── client/                  # Vite + React + Tailwind CSS
 ├── server/                  # Express + Mongoose API
+├── deploy/                  # Production docker-compose + Caddyfile
+├── terraform/               # AWS infrastructure (EC2, EIP, SG, IAM)
+├── .github/workflows/       # CI/CD and Terraform pipelines
+├── docker-compose.yml       # Local full-stack environment
 ├── PROJECT_CONTEXT.md       # Running implementation and decision log
 ├── package.json             # npm workspaces and shared scripts
 └── README.md

@@ -1,0 +1,14 @@
+# Copy to terraform.tfvars and adjust.
+aws_region    = "us-east-1"
+instance_type = "t3.small"
+
+# Leave empty to get https://<ip-with-dashes>.sslip.io automatically.
+# If you set a real domain, point its A record at the `public_ip` output.
+domain_name = ""
+
+# Optional: use MongoDB Atlas instead of the on-host MongoDB container.
+# mongo_uri = "mongodb+srv://user:pass@cluster.example.mongodb.net/financial_habit_builder"
+
+# Optional SSH access (SSM Session Manager works without this).
+# ssh_key_name      = "my-keypair"
+# ssh_ingress_cidrs = ["203.0.113.10/32"]

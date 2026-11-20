@@ -1,0 +1,65 @@
+#!/bin/bash
+# First-boot bootstrap for the Finbit host (rendered by Terraform).
+set -euxo pipefail
+exec > >(tee /var/log/finbit-bootstrap.log) 2>&1
+
+export DEBIAN_FRONTEND=noninteractive
+
+# 2 GiB swap as headroom for MongoDB memory spikes on small instances.
+if [ ! -f /swapfile ]; then
+  fallocate -l 2G /swapfile
+  chmod 600 /swapfile
+  mkswap /swapfile
+  swapon /swapfile
+  echo '/swapfile none swap sw 0 0' >> /etc/fstab
+fi
+
+apt-get update -y
+apt-get install -y ca-certificates curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+. /etc/os-release
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $VERSION_CODENAME stable" \
+  > /etc/apt/sources.list.d/docker.list
+apt-get update -y
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl enable --now docker
+
+mkdir -p /opt/finbit
+cd /opt/finbit
+
+cat > docker-compose.yml <<'FINBIT_COMPOSE_EOF'
+${compose_file}
+FINBIT_COMPOSE_EOF
+
+cat > Caddyfile <<'FINBIT_CADDY_EOF'
+${caddyfile}
+FINBIT_CADDY_EOF
+
+umask 077
+cat > .env <<'FINBIT_ENV_EOF'
+SERVER_IMAGE=${server_image}
+CLIENT_IMAGE=${client_image}
+APP_DOMAIN=${app_domain}
+JWT_SECRET=${jwt_secret}
+JWT_REFRESH_SECRET=${jwt_refresh_secret}
+%{ if mongo_uri != "" ~}
+MONGO_URI=${mongo_uri}
+%{ endif ~}
+FINBIT_ENV_EOF
+umask 022
+
+# The Elastic IP is associated right after launch; wait for it so Caddy's ACME
+# challenge reaches this host (Caddy also retries on its own).
+for _ in $(seq 1 60); do
+  token=$(curl -fsS -X PUT http://169.254.169.254/latest/api/token \
+    -H 'X-aws-ec2-metadata-token-ttl-seconds: 60' || true)
+  current_ip=$(curl -fsS -H "X-aws-ec2-metadata-token: $token" \
+    http://169.254.169.254/latest/meta-data/public-ipv4 || true)
+  [ "$current_ip" = "${elastic_ip}" ] && break
+  sleep 5
+done
+
+docker compose pull
+docker compose up -d
