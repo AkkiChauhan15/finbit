@@ -83,7 +83,7 @@ npm run build
 Server tests use an isolated in-memory MongoDB instance and do not read the development database.
 Client tests run in jsdom with Vitest and React Testing Library.
 
-## Demo seed and manual QA
+## Demo seed and manual 
 
 Use a disposable database whose name contains `qa`, `test`, or `demo`, then run:
 
