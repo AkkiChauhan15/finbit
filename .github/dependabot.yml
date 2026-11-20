@@ -1,0 +1,56 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: "/client"
+    schedule:
+      interval: weekly
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: "/server"
+    schedule:
+      interval: weekly
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: pip
+    directory: "/forecast-service"
+    schedule:
+      interval: weekly
+    groups:
+      pip-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: docker
+    directory: "/server"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: docker
+    directory: "/client"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: docker
+    directory: "/forecast-service"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      actions-minor-patch:
+        update-types: [minor, patch]

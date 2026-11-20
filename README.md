@@ -1,4 +1,6 @@
-# Financial Habit Builder & Wealth Growth Tracker
+# Finbit
+
+[![CI](https://github.com/AkkiChauhan15/finbit/actions/workflows/ci.yml/badge.svg)](https://github.com/AkkiChauhan15/finbit/actions/workflows/ci.yml)
 
 Production-ready full-stack application for building financial habits, tracking cash flow and goals, and monitoring wealth growth.
 
