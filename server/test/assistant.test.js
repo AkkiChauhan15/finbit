@@ -146,7 +146,7 @@ describe('AI assistant', () => {
       date: now(),
     });
 
-    const summary = await buildAssistantSummary(user.id);
+    const summary = await buildAssistantSummary(user._id);
     const serialized = JSON.stringify(summary);
 
     expect(serialized).not.toContain('secret.person@example.com');

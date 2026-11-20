@@ -14,7 +14,10 @@
     "test": "npm test --workspace server && npm test --workspace client",
     "lint": "npm run lint --workspace client && npm run lint --workspace server",
     "format": "npm run format --workspace client && npm run format --workspace server",
-    "format:check": "npm run format:check --workspace client && npm run format:check --workspace server"
+    "format:check": "npm run format:check --workspace client && npm run format:check --workspace server",
+    "docker:up": "docker compose up --build -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

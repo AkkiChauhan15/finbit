@@ -13,7 +13,7 @@ const SYSTEM_PROMPT = [
 
 export const chat = async (request, response) => {
   const message = request.body.message;
-  const summary = await buildAssistantSummary(request.user.id);
+  const summary = await buildAssistantSummary(request.user._id);
 
   if (isLlmConfigured()) {
     try {
