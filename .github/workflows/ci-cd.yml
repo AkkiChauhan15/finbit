@@ -1,0 +1,187 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "22"
+  IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/finbit
+
+jobs:
+  test:
+    name: Lint, test & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Test
+        run: npm test
+
+      - name: Build client
+        run: npm run build
+
+  docker:
+    name: Docker image (${{ matrix.service }})
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [server, client]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_PREFIX }}-${{ matrix.service }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=long
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ${{ matrix.service }}/Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=${{ matrix.service }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service }}
+
+  deploy:
+    name: Deploy to EC2
+    needs: docker
+    # Runs once the AWS secrets exist and the infrastructure has been applied (terraform.yml).
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+      IMAGE_TAG: sha-${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Find app instance
+        id: instance
+        run: |
+          id=$(aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=finbit-app" "Name=instance-state-name,Values=running" \
+            --query 'Reservations[0].Instances[0].InstanceId' --output text)
+          if [ -z "$id" ] || [ "$id" = "None" ]; then
+            echo "::error::No running instance tagged Name=finbit-app. Run the Terraform workflow first."
+            exit 1
+          fi
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+      - name: Roll out new images via SSM
+        env:
+          INSTANCE_ID: ${{ steps.instance.outputs.id }}
+        run: |
+          compose_b64=$(base64 -w0 deploy/docker-compose.prod.yml)
+          caddy_b64=$(base64 -w0 deploy/Caddyfile)
+          server_image="${IMAGE_PREFIX}-server:${IMAGE_TAG}"
+          client_image="${IMAGE_PREFIX}-client:${IMAGE_TAG}"
+
+          commands=$(jq -cn \
+            --arg compose "$compose_b64" --arg caddy "$caddy_b64" \
+            --arg server "$server_image" --arg client "$client_image" \
+            '{commands: [
+              "set -eu",
+              "cd /opt/finbit",
+              "echo \($compose) | base64 -d > docker-compose.yml",
+              "echo \($caddy) | base64 -d > Caddyfile",
+              "sed -i \"s|^SERVER_IMAGE=.*|SERVER_IMAGE=\($server)|; s|^CLIENT_IMAGE=.*|CLIENT_IMAGE=\($client)|\" .env",
+              "docker compose pull",
+              "docker compose up -d --remove-orphans",
+              "docker image prune -f"
+            ]}')
+
+          command_id=$(aws ssm send-command \
+            --instance-ids "$INSTANCE_ID" \
+            --document-name AWS-RunShellScript \
+            --comment "finbit deploy ${GITHUB_SHA::7}" \
+            --parameters "$commands" \
+            --query 'Command.CommandId' --output text)
+
+          echo "SSM command: $command_id"
+          # Poll for up to 10 minutes (image pulls can outlast `aws ssm wait`).
+          for _ in $(seq 1 120); do
+            sleep 5
+            status=$(aws ssm get-command-invocation --command-id "$command_id" \
+              --instance-id "$INSTANCE_ID" --query Status --output text 2>/dev/null || echo Pending)
+            case "$status" in Pending|InProgress|Delayed) continue ;; *) break ;; esac
+          done
+
+          aws ssm get-command-invocation --command-id "$command_id" --instance-id "$INSTANCE_ID" \
+            | jq -r '.StandardOutputContent, .StandardErrorContent'
+          echo "Status: $status"
+          [ "$status" = "Success" ]
+
+      - name: Smoke test
+        env:
+          APP_DOMAIN: ${{ vars.APP_DOMAIN }}
+        run: |
+          if [ -z "$APP_DOMAIN" ]; then
+            ip=$(aws ec2 describe-addresses \
+              --filters "Name=tag:Name,Values=finbit-production-app" \
+              --query 'Addresses[0].PublicIp' --output text)
+            APP_DOMAIN="$(echo "$ip" | tr . -).sslip.io"
+          fi
+          url="https://$APP_DOMAIN"
+          for _ in $(seq 1 20); do
+            if curl -fsS "$url/api/health"; then echo; exit 0; fi
+            sleep 6
+          done
+          echo "::error::Health check failed at $url/api/health"
+          exit 1
