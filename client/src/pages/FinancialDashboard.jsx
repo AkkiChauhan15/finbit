@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { api } from '../api/client.js';
+import ForecastCard from '../components/dashboard/ForecastCard.jsx';
 import NetWorthTrendChart from '../components/dashboard/NetWorthTrendChart.jsx';
 import RecentActivity from '../components/dashboard/RecentActivity.jsx';
 import SummaryCard from '../components/dashboard/SummaryCard.jsx';
+import UnusualSpending from '../components/dashboard/UnusualSpending.jsx';
+import UpcomingBills from '../components/dashboard/UpcomingBills.jsx';
 import PageSkeleton from '../components/PageSkeleton.jsx';
 import { dueLabels } from '../constants/habits.js';
 import { useAuth } from '../hooks/useAuth.js';
@@ -13,6 +16,8 @@ function FinancialDashboard() {
   const { user } = useAuth();
   const currency = user.financialProfile?.currency ?? 'USD';
   const [summary, setSummary] = useState(null);
+  const [forecast, setForecast] = useState(null);
+  const [anomalies, setAnomalies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [isSnapshotting, setIsSnapshotting] = useState(false);
@@ -30,9 +35,24 @@ function FinancialDashboard() {
     }
   }, []);
 
+  const loadInsights = useCallback(async () => {
+    try {
+      const [forecastResult, anomaliesResult] = await Promise.all([
+        api.getForecast(3),
+        api.getAnomalies(),
+      ]);
+      setForecast(forecastResult.forecast);
+      setAnomalies(anomaliesResult.anomalies ?? []);
+    } catch {
+      setForecast(null);
+      setAnomalies([]);
+    }
+  }, []);
+
   useEffect(() => {
     void loadSummary();
-  }, [loadSummary]);
+    void loadInsights();
+  }, [loadSummary, loadInsights]);
 
   const recordSnapshot = async () => {
     setIsSnapshotting(true);
@@ -215,6 +235,17 @@ function FinancialDashboard() {
           </div>
         </section>
       </div>
+
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.8fr)]">
+        <ForecastCard forecast={forecast} currency={currency} formatCurrency={formatCurrency} />
+        <UpcomingBills
+          bills={summary.upcomingBills ?? []}
+          currency={currency}
+          formatCurrency={formatCurrency}
+        />
+      </div>
+
+      <UnusualSpending anomalies={anomalies} currency={currency} formatCurrency={formatCurrency} />
     </div>
   );
 }

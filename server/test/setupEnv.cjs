@@ -6,3 +6,5 @@ process.env.JWT_REFRESH_EXPIRES_IN = '7d';
 process.env.BCRYPT_ROUNDS = '4';
 process.env.CLIENT_URL = 'http://localhost:5173';
 process.env.COOKIE_SECURE = 'false';
+process.env.FORECAST_SERVICE_URL = 'http://forecast-service:8001';
+process.env.FORECAST_API_KEY = 'test-forecast-internal-key-1234567890';

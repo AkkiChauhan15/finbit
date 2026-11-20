@@ -22,3 +22,14 @@ export const writeRateLimiter = rateLimit({
     message: 'Too many write requests. Please slow down and try again shortly.',
   },
 });
+
+export const assistantRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  message: {
+    status: 'error',
+    message: 'Too many assistant requests. Please try again in 15 minutes.',
+  },
+});

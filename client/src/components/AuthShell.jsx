@@ -6,11 +6,11 @@ function AuthShell({ children, eyebrow, title, description, footerText, footerLi
       <section className="relative hidden overflow-hidden bg-[#e4f4e7] p-10 md:flex md:flex-col md:justify-between lg:p-14">
         <div className="relative z-10 flex items-center gap-3">
           <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#00bc44] text-xl font-black text-[#003e14]">
-            W
+            F
           </span>
           <div>
-            <p className="text-xl font-bold text-[#006e24]">WealthTracker</p>
-            <p className="text-xs text-[#536158]">Financial habits that compound</p>
+            <p className="text-xl font-bold text-[#006e24]">Finbit</p>
+            <p className="text-xs text-[#536158]">Track, grow, and plan your money</p>
           </div>
         </div>
 
@@ -62,9 +62,9 @@ function AuthShell({ children, eyebrow, title, description, footerText, footerLi
         <div className="w-full max-w-md">
           <div className="mb-10 flex items-center gap-2 md:hidden">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#00bc44] font-black text-[#003e14]">
-              W
+              F
             </span>
-            <p className="font-bold text-[#006e24]">WealthTracker</p>
+            <p className="font-bold text-[#006e24]">Finbit</p>
           </div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#006e24]">{eyebrow}</p>
           <h1 className="mt-3 text-3xl font-bold tracking-[-0.025em] text-[#161d19] sm:text-4xl">

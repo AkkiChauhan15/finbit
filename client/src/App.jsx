@@ -14,6 +14,8 @@ const ExpenseTracker = lazy(() => import('./pages/ExpenseTracker.jsx'));
 const HabitTracker = lazy(() => import('./pages/HabitTracker.jsx'));
 const SavingsGoals = lazy(() => import('./pages/SavingsGoals.jsx'));
 const WealthAnalytics = lazy(() => import('./pages/WealthAnalytics.jsx'));
+const Subscriptions = lazy(() => import('./pages/Subscriptions.jsx'));
+const Assistant = lazy(() => import('./pages/Assistant.jsx'));
 const ProfileSettings = lazy(() => import('./pages/ProfileSettings.jsx'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel.jsx'));
 
@@ -38,6 +40,8 @@ function App() {
           <Route path="habits" element={lazyPage(HabitTracker, 'habit tracker')} />
           <Route path="savings-goals" element={lazyPage(SavingsGoals, 'savings goals')} />
           <Route path="wealth-analytics" element={lazyPage(WealthAnalytics, 'wealth analytics')} />
+          <Route path="subscriptions" element={lazyPage(Subscriptions, 'subscriptions')} />
+          <Route path="assistant" element={lazyPage(Assistant, 'assistant')} />
           <Route path="profile" element={lazyPage(ProfileSettings, 'profile settings')} />
           <Route element={<AdminRoute />}>
             <Route path="admin" element={lazyPage(AdminPanel, 'admin panel')} />

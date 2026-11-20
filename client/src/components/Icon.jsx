@@ -31,6 +31,19 @@ const paths = {
       <path d="m4 7 6-4 6 6 5-5" />
     </>
   ),
+  assistant: (
+    <>
+      <path d="M12 3a4 4 0 0 0-4 4v1H6a3 3 0 0 0-3 3v3a3 3 0 0 0 3 3h1.1a5 5 0 0 0 9.8 0H19a3 3 0 0 0 3-3v-3a3 3 0 0 0-3-3h-2V7a4 4 0 0 0-4-4Z" />
+      <path d="M9 13h.01M15 13h.01" />
+    </>
+  ),
+  subscriptions: (
+    <>
+      <path d="M4 5h16v14H4z" />
+      <path d="M8 3v4M16 3v4M4 9h16" />
+      <path d="m9 14 2 2 4-4" />
+    </>
+  ),
   profile: (
     <>
       <circle cx="12" cy="8" r="4" />

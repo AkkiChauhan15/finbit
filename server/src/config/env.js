@@ -16,6 +16,11 @@ export const env = Object.freeze({
   cookieSecure: process.env.COOKIE_SECURE === 'true',
   clientUrl: process.env.CLIENT_URL ?? 'http://localhost:5173',
   nodeEnv: process.env.NODE_ENV ?? 'development',
+  forecastServiceUrl: process.env.FORECAST_SERVICE_URL ?? '',
+  forecastApiKey: process.env.FORECAST_API_KEY ?? '',
+  llmBaseUrl: process.env.LLM_BASE_URL ?? '',
+  llmApiKey: process.env.LLM_API_KEY ?? '',
+  llmModel: process.env.LLM_MODEL ?? '',
 });
 
 const isHttpUrl = (value, { requireHttps = false } = {}) => {
@@ -62,6 +67,14 @@ export const validateEnvironment = (configuration = env) => {
 
   if (configuration.bcryptRounds < 10 || configuration.bcryptRounds > 15) {
     errors.push('BCRYPT_ROUNDS must be between 10 and 15');
+  }
+
+  if (!isHttpUrl(configuration.forecastServiceUrl)) {
+    errors.push('FORECAST_SERVICE_URL must be a valid URL');
+  }
+
+  if ((configuration.forecastApiKey ?? '').length < 16) {
+    errors.push('FORECAST_API_KEY must contain at least 16 characters');
   }
 
   if (errors.length > 0) {

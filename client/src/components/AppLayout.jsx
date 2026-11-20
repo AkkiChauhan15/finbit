@@ -10,6 +10,8 @@ const navigation = [
   { to: '/habits', label: 'Habit Tracker', shortLabel: 'Habits', icon: 'habits' },
   { to: '/savings-goals', label: 'Savings Goals', shortLabel: 'Goals', icon: 'goals' },
   { to: '/wealth-analytics', label: 'Wealth Analytics', shortLabel: 'Wealth', icon: 'analytics' },
+  { to: '/subscriptions', label: 'Subscriptions', shortLabel: 'Bills', icon: 'subscriptions' },
+  { to: '/assistant', label: 'Assistant', shortLabel: 'Assistant', icon: 'assistant' },
   { to: '/profile', label: 'Profile Settings', icon: 'profile', utility: true },
   { to: '/admin', label: 'Admin Panel', icon: 'admin', adminOnly: true, utility: true },
 ];
@@ -55,10 +57,8 @@ function AppLayout() {
         <div className="flex items-center gap-3 px-2">
           <BrandMark />
           <div className="min-w-0">
-            <p className="truncate text-xl font-bold tracking-tight text-[#006e24]">
-              WealthTracker
-            </p>
-            <p className="text-xs text-[#536158]">Habits that compound</p>
+            <p className="truncate text-xl font-bold tracking-tight text-[#006e24]">Finbit</p>
+            <p className="text-xs text-[#536158]">Track, grow, and plan your money</p>
           </div>
         </div>
 
@@ -83,9 +83,7 @@ function AppLayout() {
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-[#d7e2d9] bg-[#f4fbf4]/95 px-4 backdrop-blur sm:px-6 lg:px-10">
           <div className="flex min-w-0 items-center gap-2.5 lg:hidden">
             <BrandMark className="h-8 w-8 shrink-0" />
-            <p className="truncate text-base font-bold text-[#006e24] sm:text-lg">
-              Financial Habit Builder
-            </p>
+            <p className="truncate text-base font-bold text-[#006e24] sm:text-lg">Finbit</p>
           </div>
           <p className="hidden text-sm text-[#536158] lg:block">
             Build better money habits, one decision at a time.

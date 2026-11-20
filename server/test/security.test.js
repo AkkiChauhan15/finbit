@@ -132,7 +132,7 @@ test('production configuration fails fast for missing or unsafe settings', () =>
         clientUrl: 'http://localhost:5173',
         bcryptRounds: 4,
       }),
-    /MONGO_URI.*JWT_SECRET.*JWT_REFRESH_SECRET.*CLIENT_URL.*BCRYPT_ROUNDS/,
+    /MONGO_URI.*JWT_SECRET.*JWT_REFRESH_SECRET.*CLIENT_URL.*BCRYPT_ROUNDS.*FORECAST_SERVICE_URL/,
   );
 
   assert.doesNotThrow(() =>
@@ -143,6 +143,8 @@ test('production configuration fails fast for missing or unsafe settings', () =>
       jwtRefreshSecret: 'b'.repeat(48),
       clientUrl: 'https://financial-habit-builder.vercel.app',
       bcryptRounds: 12,
+      forecastServiceUrl: 'https://forecast.example.com',
+      forecastApiKey: 'c'.repeat(32),
     }),
   );
 });

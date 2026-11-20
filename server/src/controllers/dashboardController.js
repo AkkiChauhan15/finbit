@@ -3,6 +3,7 @@ import HabitCompletion from '../models/HabitCompletion.js';
 import Income from '../models/Income.js';
 import NetWorthSnapshot from '../models/NetWorthSnapshot.js';
 import SavingsGoal from '../models/SavingsGoal.js';
+import Subscription from '../models/Subscription.js';
 import { buildActiveHabitSummaries } from '../services/habitSummaryService.js';
 import { calculateCurrentNetWorth } from '../services/netWorthService.js';
 import { roundTotal } from '../utils/dateRange.js';
@@ -22,6 +23,7 @@ export const getDashboardSummary = async (request, response) => {
   const now = new Date();
   const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
   const nextMonthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1));
+  const upcomingBillsWindowEnd = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
   const [
     incomeTotal,
     expenseTotal,
@@ -32,6 +34,7 @@ export const getDashboardSummary = async (request, response) => {
     recentExpenses,
     recentHabitCompletions,
     snapshotsDescending,
+    upcomingSubscriptions,
   ] = await Promise.all([
     aggregateMonthTotal(Income, request.user._id, monthStart, nextMonthStart),
     aggregateMonthTotal(Expense, request.user._id, monthStart, nextMonthStart),
@@ -45,6 +48,11 @@ export const getDashboardSummary = async (request, response) => {
       .limit(5)
       .populate('habit', 'name'),
     NetWorthSnapshot.find(userScope(request.user.id)).sort({ date: -1 }).limit(12),
+    Subscription.find(
+      userScope(request.user.id, { active: true, nextDueDate: { $lte: upcomingBillsWindowEnd } }),
+    )
+      .sort({ nextDueDate: 1 })
+      .limit(5),
   ]);
   const netSavings = roundTotal(incomeTotal - expenseTotal);
   const savingsRate = incomeTotal > 0 ? Math.round((netSavings / incomeTotal) * 1000) / 10 : 0;
@@ -102,6 +110,14 @@ export const getDashboardSummary = async (request, response) => {
     !latestSnapshot ||
     latestSnapshotKey !== todayKey ||
     Number(latestSnapshot.netWorth) !== netWorth.netWorth;
+  const upcomingBills = upcomingSubscriptions.map((subscription) => ({
+    _id: subscription._id,
+    name: subscription.name,
+    amount: subscription.amount,
+    category: subscription.category,
+    nextDueDate: subscription.nextDueDate,
+    daysUntil: Math.ceil((subscription.nextDueDate - now) / (24 * 60 * 60 * 1000)),
+  }));
 
   response.status(200).json({
     period: {
@@ -129,6 +145,7 @@ export const getDashboardSummary = async (request, response) => {
       onTrackCount: onTrackGoals.length,
       items: activeGoals.slice(0, 3),
     },
+    upcomingBills,
     netWorthHistory,
     recentActivity,
   });
