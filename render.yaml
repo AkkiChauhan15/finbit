@@ -1,12 +1,24 @@
+# Render blueprint for the Finbit API and forecast microservice.
+#
+# The React client is deployed separately through Vercel's Git integration on
+# `main` (see client/vercel.json) and is not defined here.
+#
+# Both services use `runtime: docker` and `autoDeploy: false`: deploys only run
+# through the CD pipeline (GitHub Actions posts the Render deploy hooks after CI
+# passes and the images are pushed to GHCR). Images are tagged by short SHA.
+#
+# Rollback: in the Render dashboard, select the service and click "Rollback" to
+# the previous deploy, or "Manual Deploy" an older commit SHA.
+
 services:
   - type: web
-    name: financial-habit-builder-api
-    runtime: node
+    name: finbit-api
+    runtime: docker
     plan: free
-    buildCommand: npm ci --omit=dev --workspace server
-    startCommand: npm start --workspace server
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    autoDeploy: false
     healthCheckPath: /api/health
-    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
@@ -26,3 +38,22 @@ services:
         value: true
       - key: CLIENT_URL
         sync: false
+      - key: FORECAST_SERVICE_URL
+        sync: false
+      - key: FORECAST_API_KEY
+        fromService:
+          type: web
+          name: finbit-forecast
+          envVarKey: FORECAST_API_KEY
+
+  - type: web
+    name: finbit-forecast
+    runtime: docker
+    plan: free
+    dockerfilePath: ./forecast-service/Dockerfile
+    dockerContext: ./forecast-service
+    autoDeploy: false
+    healthCheckPath: /health
+    envVars:
+      - key: FORECAST_API_KEY
+        generateValue: true

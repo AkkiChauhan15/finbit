@@ -1,0 +1,120 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push:
+    name: Build and push images to GHCR
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Metadata (server)
+        id: meta-server
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/finbit-server
+          tags: |
+            type=sha
+            type=raw,value=latest
+
+      - name: Build and push server
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: server/Dockerfile
+          push: true
+          tags: ${{ steps.meta-server.outputs.tags }}
+          labels: ${{ steps.meta-server.outputs.labels }}
+
+      - name: Metadata (client)
+        id: meta-client
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/finbit-client
+          tags: |
+            type=sha
+            type=raw,value=latest
+
+      - name: Build and push client
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: client/Dockerfile
+          push: true
+          tags: ${{ steps.meta-client.outputs.tags }}
+          labels: ${{ steps.meta-client.outputs.labels }}
+
+      - name: Metadata (forecast)
+        id: meta-forecast
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/finbit-forecast
+          tags: |
+            type=sha
+            type=raw,value=latest
+
+      - name: Build and push forecast
+        uses: docker/build-push-action@v6
+        with:
+          context: ./forecast-service
+          file: forecast-service/Dockerfile
+          push: true
+          tags: ${{ steps.meta-forecast.outputs.tags }}
+          labels: ${{ steps.meta-forecast.outputs.labels }}
+
+  deploy:
+    name: Deploy to Render
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Trigger API deploy
+        run: |
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_SERVER" \
+            || { echo "::error::Render API deploy hook failed"; exit 1; }
+        env:
+          RENDER_DEPLOY_HOOK_SERVER: ${{ secrets.RENDER_DEPLOY_HOOK_SERVER }}
+
+      - name: Trigger forecast deploy
+        run: |
+          curl -fsS -X POST "$RENDER_DEPLOY_HOOK_FORECAST" \
+            || { echo "::error::Render forecast deploy hook failed"; exit 1; }
+        env:
+          RENDER_DEPLOY_HOOK_FORECAST: ${{ secrets.RENDER_DEPLOY_HOOK_FORECAST }}
+
+      - name: Wait for API to become healthy
+        run: |
+          url="${API_HEALTH_URL:?Set the API_HEALTH_URL environment variable to the Render API health endpoint}"
+          for attempt in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url" || true)
+            if [ "$code" = "200" ]; then
+              echo "API healthy after $((attempt * 10))s"
+              exit 0
+            fi
+            echo "Waiting for API health (attempt $attempt, HTTP $code)..."
+            sleep 10
+          done
+          echo "::error::API did not become healthy within 5 minutes (Render cold start)."
+          echo "::error::Rollback: open the Render dashboard, select the API service, and click 'Rollback' to the previous deploy, or redeploy an older commit SHA."
+          exit 1
+        env:
+          API_HEALTH_URL: ${{ vars.API_HEALTH_URL }}
